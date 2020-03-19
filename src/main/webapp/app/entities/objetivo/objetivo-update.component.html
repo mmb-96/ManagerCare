@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-objetivo-heading" jhiTranslate="managerCareApp.objetivo.home.createOrEditLabel">Create or edit a Objetivo</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.nombre" for="field_nombre" [ngbTooltip]="'managerCareApp.objetivo.help.nombre' | translate">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                           formControlName="nombre"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.descripcion" for="field_descripcion" [ngbTooltip]="'managerCareApp.objetivo.help.descripcion' | translate">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                           formControlName="descripcion"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.url" for="field_url" [ngbTooltip]="'managerCareApp.objetivo.help.url' | translate">Url</label>
+                    <input type="text" class="form-control" name="url" id="field_url"
+                           formControlName="url"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.puntos" for="field_puntos" [ngbTooltip]="'managerCareApp.objetivo.help.puntos' | translate">Puntos</label>
+                    <input type="number" class="form-control" name="puntos" id="field_puntos"
+                           formControlName="puntos"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.tipo" for="field_tipo">Tipo</label>
+                    <select class="form-control" id="field_tipo" name="tipo" formControlName="tipo">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption" *ngFor="let tipoOption of tipos; trackBy: trackById">{{ tipoOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

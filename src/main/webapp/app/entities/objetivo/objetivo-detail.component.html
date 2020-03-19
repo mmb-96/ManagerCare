@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="objetivo">
+            <h2><span jhiTranslate="managerCareApp.objetivo.detail.title">Objetivo</span> {{ objetivo.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managerCareApp.objetivo.nombre" [ngbTooltip]="'managerCareApp.objetivo.help.nombre' | translate">Nombre</span></dt>
+                <dd>
+                    <span>{{ objetivo.nombre }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivo.descripcion" [ngbTooltip]="'managerCareApp.objetivo.help.descripcion' | translate">Descripcion</span></dt>
+                <dd>
+                    <span>{{ objetivo.descripcion }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivo.url" [ngbTooltip]="'managerCareApp.objetivo.help.url' | translate">Url</span></dt>
+                <dd>
+                    <span>{{ objetivo.url }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivo.puntos" [ngbTooltip]="'managerCareApp.objetivo.help.puntos' | translate">Puntos</span></dt>
+                <dd>
+                    <span>{{ objetivo.puntos }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivo.tipo">Tipo</span></dt>
+                <dd>
+                    <div *ngIf="objetivo.tipo">
+                        <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']">{{ objetivo.tipo?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/objetivo', objetivo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
