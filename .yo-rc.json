@@ -37,6 +37,8 @@
     "enableTranslation": true,
     "nativeLanguage": "es",
     "languages": ["es"],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "manager-care",
+    "herokuDeployType": "git"
   }
 }
