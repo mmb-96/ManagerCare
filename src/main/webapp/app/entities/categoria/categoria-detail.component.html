@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="categoria">
+            <h2><span jhiTranslate="managerCareApp.categoria.detail.title">Categoria</span> {{ categoria.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managerCareApp.categoria.nombre" [ngbTooltip]="'managerCareApp.categoria.help.nombre' | translate">Nombre</span></dt>
+                <dd>
+                    <span>{{ categoria.nombre }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.categoria.descripcion">Descripcion</span></dt>
+                <dd>
+                    <span>{{ categoria.descripcion }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.categoria.objetivo">Objetivo</span></dt>
+                <dd>
+                    <span *ngFor="let objetivo of categoria.objetivos; let last = last">
+                        <a [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.categoria.user">User</span></dt>
+                <dd>
+                    <span *ngFor="let user of categoria.users; let last = last">
+                        {{ user.id }}{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/categoria', categoria.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

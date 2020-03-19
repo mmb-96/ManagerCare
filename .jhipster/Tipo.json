@@ -1,0 +1,23 @@
+{
+    "name": "Tipo",
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "javadoc": "Atributo nombre.",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200319113100",
+    "javadoc": "Entidad Tipo\\n@author Manuel Melero.",
+    "entityTableName": "tipo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

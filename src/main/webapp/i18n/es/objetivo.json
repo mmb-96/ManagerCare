@@ -1,0 +1,33 @@
+{
+  "managerCareApp": {
+    "objetivo": {
+      "home": {
+        "title": "Objetivos",
+        "createLabel": "Crear nuevo Objetivo",
+        "createOrEditLabel": "Crear o editar Objetivo",
+        "notFound": "Ningún Objetivos encontrado"
+      },
+      "created": "Un nuevo Objetivo ha sido creado con el identificador {{ param }}",
+      "updated": "Un Objetivo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Objetivo ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Objetivo {{ id }}?"
+      },
+      "detail": {
+        "title": "Objetivo"
+      },
+      "nombre": "Nombre",
+      "descripcion": "Descripcion",
+      "url": "Url",
+      "puntos": "Puntos",
+      "tipo": "Tipo",
+      "categoria": "Categoria",
+      "help": {
+        "nombre": "Atributo nombre.",
+        "descripcion": "Atributo descripcion.",
+        "url": "Atributo url.",
+        "puntos": "Atributo puntos."
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+    "name": "Objetivo",
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "javadoc": "Atributo nombre.",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descripcion",
+            "javadoc": "Atributo descripcion.",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "url",
+            "javadoc": "Atributo url.",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "puntos",
+            "javadoc": "Atributo puntos.",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tipo",
+            "otherEntityRelationshipName": "objetivo",
+            "javadoc": "Relacion entre objetivos y tipo.",
+            "relationshipName": "tipo",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "categoria",
+            "otherEntityRelationshipName": "objetivo",
+            "relationshipName": "categoria",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200319112900",
+    "javadoc": "Entidad Objetivo\\n@author Manuel Melero.",
+    "entityTableName": "objetivo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
