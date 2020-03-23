@@ -1,21 +1,30 @@
 package org.jacaranda.ies.web.rest;
 
-import org.jacaranda.ies.domain.Tipo;
-import org.jacaranda.ies.service.TipoService;
-import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.jacaranda.ies.domain.Tipo;
+import org.jacaranda.ies.security.AuthoritiesConstants;
+import org.jacaranda.ies.service.TipoService;
+import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link org.jacaranda.ies.domain.Tipo}.
@@ -45,6 +54,7 @@ public class TipoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/tipos")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Tipo> createTipo(@RequestBody Tipo tipo) throws URISyntaxException {
         log.debug("REST request to save Tipo : {}", tipo);
         if (tipo.getId() != null) {
@@ -66,6 +76,7 @@ public class TipoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/tipos")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Tipo> updateTipo(@RequestBody Tipo tipo) throws URISyntaxException {
         log.debug("REST request to update Tipo : {}", tipo);
         if (tipo.getId() == null) {
@@ -108,6 +119,7 @@ public class TipoResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/tipos/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteTipo(@PathVariable Long id) {
         log.debug("REST request to delete Tipo : {}", id);
         tipoService.delete(id);

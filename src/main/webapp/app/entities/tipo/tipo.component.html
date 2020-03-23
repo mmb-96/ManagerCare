@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="managerCareApp.tipo.home.title">Tipos</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tipo" [routerLink]="['/tipo/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tipo" [routerLink]="['/tipo/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="managerCareApp.tipo.home.createLabel">
             Create a new Tipo
@@ -40,14 +40,14 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/tipo', tipo.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(tipo)"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(tipo)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
