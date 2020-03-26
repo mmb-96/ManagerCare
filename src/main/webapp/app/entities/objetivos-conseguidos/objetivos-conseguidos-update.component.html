@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-objetivos-conseguidos-heading" jhiTranslate="managerCareApp.objetivosConseguidos.home.createOrEditLabel">Create or edit a Objetivos Conseguidos</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.estado" for="field_estado" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.estado' | translate">Estado</label>
+                    <input type="checkbox" class="form-control" name="estado" id="field_estado"
+                           formControlName="estado"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.fechaApertura" for="field_fechaApertura" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.fechaApertura' | translate">Fecha Apertura</label>
+                    <div class="d-flex">
+                        <input id="field_fechaApertura" type="datetime-local" class="form-control" name="fechaApertura" formControlName="fechaApertura" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.fechaCierre" for="field_fechaCierre" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.fechaCierre' | translate">Fecha Cierre</label>
+                    <div class="d-flex">
+                        <input id="field_fechaCierre" type="datetime-local" class="form-control" name="fechaCierre" formControlName="fechaCierre" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.objetivo" for="field_objetivo">Objetivo</label>
+                    <select class="form-control" id="field_objetivo" name="objetivo" formControlName="objetivo">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="objetivoOption.id === editForm.get('objetivo')!.value?.id ? editForm.get('objetivo')!.value : objetivoOption" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

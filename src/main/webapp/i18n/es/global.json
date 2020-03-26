@@ -10,6 +10,8 @@
         "objetivo": "Objetivo",
         "categoria": "Categoria",
         "tipo": "Tipo",
+        "puntosConseguidos": "Puntos Conseguidos",
+        "objetivosConseguidos": "Objetivos Conseguidos",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

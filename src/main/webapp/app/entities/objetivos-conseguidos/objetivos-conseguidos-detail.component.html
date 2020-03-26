@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="objetivosConseguidos">
+            <h2><span jhiTranslate="managerCareApp.objetivosConseguidos.detail.title">Objetivos Conseguidos</span> {{ objetivosConseguidos.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.estado" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.estado' | translate">Estado</span></dt>
+                <dd>
+                    <span>{{ objetivosConseguidos.estado }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaApertura" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.fechaApertura' | translate">Fecha Apertura</span></dt>
+                <dd>
+                    <span>{{ objetivosConseguidos.fechaApertura }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaCierre" [ngbTooltip]="'managerCareApp.objetivosConseguidos.help.fechaCierre' | translate">Fecha Cierre</span></dt>
+                <dd>
+                    <span>{{ objetivosConseguidos.fechaCierre }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.user">User</span></dt>
+                <dd>
+                    {{ objetivosConseguidos.user?.id }}
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.objetivo">Objetivo</span></dt>
+                <dd>
+                    <div *ngIf="objetivosConseguidos.objetivo">
+                        <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']">{{ objetivosConseguidos.objetivo?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

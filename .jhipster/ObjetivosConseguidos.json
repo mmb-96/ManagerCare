@@ -1,0 +1,50 @@
+{
+    "name": "ObjetivosConseguidos",
+    "fields": [
+        {
+            "fieldName": "estado",
+            "javadoc": "Atributo estado.",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "fechaApertura",
+            "javadoc": "Atributo anyos.",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "fechaCierre",
+            "javadoc": "Atributo fecha cierre.",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "objetivosConseguidos",
+            "javadoc": "Relacion entre objetivos conseguidos y usuarios.",
+            "relationshipName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "objetivo",
+            "otherEntityRelationshipName": "objetivosConseguidos",
+            "javadoc": "Relacion entre objetivos conseguidos y usuarios.",
+            "relationshipName": "objetivo",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200326132400",
+    "javadoc": "Entidad Objetivos conseguidos\\n@author Manuel Melero.",
+    "entityTableName": "objetivos_conseguidos",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

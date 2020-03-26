@@ -1,0 +1,31 @@
+{
+  "managerCareApp": {
+    "objetivosConseguidos": {
+      "home": {
+        "title": "Objetivos Conseguidos",
+        "createLabel": "Crear nuevo Objetivos Conseguidos",
+        "createOrEditLabel": "Crear o editar Objetivos Conseguidos",
+        "notFound": "Ningún Objetivos Conseguidos encontrado"
+      },
+      "created": "Un nuevo Objetivos Conseguidos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Objetivos Conseguidos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Objetivos Conseguidos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Objetivos Conseguidos {{ id }}?"
+      },
+      "detail": {
+        "title": "Objetivos Conseguidos"
+      },
+      "estado": "Estado",
+      "fechaApertura": "Fecha Apertura",
+      "fechaCierre": "Fecha Cierre",
+      "user": "User",
+      "objetivo": "Objetivo",
+      "help": {
+        "estado": "Atributo estado.",
+        "fechaApertura": "Atributo anyos.",
+        "fechaCierre": "Atributo fecha cierre."
+      }
+    }
+  }
+}

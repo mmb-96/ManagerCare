@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managerCareApp.objetivosConseguidos.home.title">Objetivos Conseguidos</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-objetivos-conseguidos" [routerLink]="['/objetivos-conseguidos/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managerCareApp.objetivosConseguidos.home.createLabel">
+            Create a new Objetivos Conseguidos
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="objetivosConseguidos?.length === 0">
+        <span jhiTranslate="managerCareApp.objetivosConseguidos.home.notFound">No objetivosConseguidos found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="objetivosConseguidos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.estado">Estado</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaApertura">Fecha Apertura</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaCierre">Fecha Cierre</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.user">User</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.objetivo">Objetivo</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let objetivosConseguidos of objetivosConseguidos ;trackBy: trackId">
+                    <td><a [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'view']">{{ objetivosConseguidos.id }}</a></td>
+                    <td>{{ objetivosConseguidos.estado }}</td>
+                    <td>{{ objetivosConseguidos.fechaApertura | date:'medium' }}</td>
+                    <td>{{ objetivosConseguidos.fechaCierre | date:'medium' }}</td>
+                    <td>
+                        {{ objetivosConseguidos.user?.id }}
+                    </td>
+                    <td>
+                        <div *ngIf="objetivosConseguidos.objetivo">
+                            <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']" >{{ objetivosConseguidos.objetivo?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(objetivosConseguidos)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

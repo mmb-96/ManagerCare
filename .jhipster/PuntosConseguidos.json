@@ -1,0 +1,37 @@
+{
+    "name": "PuntosConseguidos",
+    "fields": [
+        {
+            "fieldName": "puntos",
+            "javadoc": "Atributo puntos.",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "anyos",
+            "javadoc": "Atributo anyos.",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "puntosConseguidos",
+            "javadoc": "Relacion entre puntos conseguidos y usuarios.",
+            "relationshipName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200326132300",
+    "javadoc": "Entidad Puntos conseguidos\\n@author Manuel Melero.",
+    "entityTableName": "puntos_conseguidos",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
