@@ -1,0 +1,28 @@
+{
+  "managerCareApp": {
+    "puntosConseguidos": {
+      "home": {
+        "title": "Puntos Conseguidos",
+        "createLabel": "Crear nuevo Puntos Conseguidos",
+        "createOrEditLabel": "Crear o editar Puntos Conseguidos",
+        "notFound": "Ningún Puntos Conseguidos encontrado"
+      },
+      "created": "Un nuevo Puntos Conseguidos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Puntos Conseguidos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Puntos Conseguidos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Puntos Conseguidos {{ id }}?"
+      },
+      "detail": {
+        "title": "Puntos Conseguidos"
+      },
+      "puntos": "Puntos",
+      "anyos": "Anyos",
+      "user": "User",
+      "help": {
+        "puntos": "Atributo puntos.",
+        "anyos": "Atributo anyos."
+      }
+    }
+  }
+}

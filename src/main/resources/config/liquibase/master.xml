@@ -17,8 +17,12 @@
     <include file="config/liquibase/changelog/20200319112900_added_entity_Objetivo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319113000_added_entity_Categoria.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319113100_added_entity_Tipo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200326132300_added_entity_PuntosConseguidos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200326132400_added_entity_ObjetivosConseguidos.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200319112900_added_entity_constraints_Objetivo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319113000_added_entity_constraints_Categoria.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200326132300_added_entity_constraints_PuntosConseguidos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200326132400_added_entity_constraints_ObjetivosConseguidos.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

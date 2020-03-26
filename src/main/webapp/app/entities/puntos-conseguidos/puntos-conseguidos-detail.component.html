@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="puntosConseguidos">
+            <h2><span jhiTranslate="managerCareApp.puntosConseguidos.detail.title">Puntos Conseguidos</span> {{ puntosConseguidos.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managerCareApp.puntosConseguidos.puntos" [ngbTooltip]="'managerCareApp.puntosConseguidos.help.puntos' | translate">Puntos</span></dt>
+                <dd>
+                    <span>{{ puntosConseguidos.puntos }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.puntosConseguidos.anyos" [ngbTooltip]="'managerCareApp.puntosConseguidos.help.anyos' | translate">Anyos</span></dt>
+                <dd>
+                    <span>{{ puntosConseguidos.anyos }}</span>
+                </dd>
+                <dt><span jhiTranslate="managerCareApp.puntosConseguidos.user">User</span></dt>
+                <dd>
+                    {{ puntosConseguidos.user?.id }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/puntos-conseguidos', puntosConseguidos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

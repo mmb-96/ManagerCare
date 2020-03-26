@@ -45,6 +45,18 @@
                             <span jhiTranslate="global.menu.entities.tipo">Tipo</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="puntos-conseguidos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.puntosConseguidos">Puntos Conseguidos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="objetivos-conseguidos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.objetivosConseguidos">Objetivos Conseguidos</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

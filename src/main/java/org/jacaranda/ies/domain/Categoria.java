@@ -48,6 +48,10 @@ public class Categoria implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "objetivo_id", referencedColumnName = "id"))
     private Set<Objetivo> objetivos = new HashSet<>();
 
+    /**
+     * Relacion entre categoria y usuarios.
+     */
+    @ApiModelProperty(value = "Relacion entre categoria y usuarios.")
     @ManyToMany
     @JoinTable(name = "categoria_user",
                joinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id"),
