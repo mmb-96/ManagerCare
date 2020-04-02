@@ -33,7 +33,6 @@ export class CategoriaUpdatePage {
   descripcionInput = element(by.id('field_descripcion'));
 
   objetivoSelect = element(by.id('field_objetivo'));
-  userSelect = element(by.id('field_user'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -72,25 +71,6 @@ export class CategoriaUpdatePage {
 
   async getObjetivoSelectedOption(): Promise<string> {
     return await this.objetivoSelect.element(by.css('option:checked')).getText();
-  }
-
-  async userSelectLastOption(): Promise<void> {
-    await this.userSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async userSelectOption(option: string): Promise<void> {
-    await this.userSelect.sendKeys(option);
-  }
-
-  getUserSelect(): ElementFinder {
-    return this.userSelect;
-  }
-
-  async getUserSelectedOption(): Promise<string> {
-    return await this.userSelect.element(by.css('option:checked')).getText();
   }
 
   async save(): Promise<void> {

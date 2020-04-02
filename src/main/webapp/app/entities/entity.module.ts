@@ -24,6 +24,14 @@ import { RouterModule } from '@angular/router';
         path: 'objetivos-conseguidos',
         loadChildren: () =>
           import('./objetivos-conseguidos/objetivos-conseguidos.module').then(m => m.ManagerCareObjetivosConseguidosModule)
+      },
+      {
+        path: 'user-extra',
+        loadChildren: () => import('./user-extra/user-extra.module').then(m => m.ManagerCareUserExtraModule)
+      },
+      {
+        path: 'categoria-asc',
+        loadChildren: () => import('./categoria-asc/categoria-asc.module').then(m => m.ManagerCareCategoriaAscModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

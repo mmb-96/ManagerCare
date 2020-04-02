@@ -19,9 +19,9 @@
       "nombre": "Nombre",
       "descripcion": "Descripcion",
       "objetivo": "Objetivo",
-      "user": "User",
       "help": {
-        "nombre": "Atributo nombre."
+        "nombre": "Atributo nombre.",
+        "descripcion": "Atributo descripcion."
       }
     }
   }

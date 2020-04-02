@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="managerCareApp.categoria.descripcion" for="field_descripcion">Descripcion</label>
+                    <label class="form-control-label" jhiTranslate="managerCareApp.categoria.descripcion" for="field_descripcion" [ngbTooltip]="'managerCareApp.categoria.help.descripcion' | translate">Descripcion</label>
                     <input type="text" class="form-control" name="descripcion" id="field_descripcion"
                            formControlName="descripcion"/>
                 </div>
@@ -27,13 +27,6 @@
                     <label jhiTranslate="managerCareApp.categoria.objetivo" for="field_objetivos">Objetivo</label>
                     <select class="form-control" id="field_objetivos" multiple name="objetivos" formControlName="objetivos">
                         <option [ngValue]="getSelected(editForm.get('objetivos')!.value, objetivoOption)" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label jhiTranslate="managerCareApp.categoria.user" for="field_users">User</label>
-                    <select class="form-control" id="field_users" multiple name="users" formControlName="users">
-                        <option [ngValue]="getSelected(editForm.get('users')!.value, userOption)" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
                     </select>
                 </div>
             </div>

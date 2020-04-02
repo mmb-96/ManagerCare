@@ -1,0 +1,71 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managerCareApp.categoriaAsc.home.title">Categoria Ascs</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria-asc" [routerLink]="['/categoria-asc/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiTranslate="managerCareApp.categoriaAsc.home.createLabel">
+            Create a new Categoria Asc
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="categoriaAscs?.length === 0">
+        <span jhiTranslate="managerCareApp.categoriaAsc.home.notFound">No categoriaAscs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="categoriaAscs?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.categoriaAsc.idHijo">Id Hijo</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.categoriaAsc.idPadre">Id Padre</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let categoriaAsc of categoriaAscs ;trackBy: trackId">
+                    <td><a [routerLink]="['/categoria-asc', categoriaAsc.id, 'view']">{{ categoriaAsc.id }}</a></td>
+                    <td>
+                        <div *ngIf="categoriaAsc.idHijo">
+                            <a [routerLink]="['/categoria', categoriaAsc.idHijo?.id, 'view']" >{{ categoriaAsc.idHijo?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="categoriaAsc.idPadre">
+                            <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']" >{{ categoriaAsc.idPadre?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/categoria-asc', categoriaAsc.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/categoria-asc', categoriaAsc.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(categoriaAsc)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -18,7 +18,7 @@
             <column name="nombre" type="varchar(255)" remarks="Atributo nombre.">
                 <constraints nullable="true" />
             </column>
-            <column name="descripcion" type="varchar(255)">
+            <column name="descripcion" type="varchar(255)" remarks="Atributo descripcion.">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -37,17 +37,6 @@
         </createTable>
 
         <addPrimaryKey columnNames="categoria_id, objetivo_id" tableName="categoria_objetivo"/>
-        
-        <createTable tableName="categoria_user">
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="categoria_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="categoria_id, user_id" tableName="categoria_user"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

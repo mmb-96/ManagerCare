@@ -26,7 +26,6 @@
                     <th scope="col" ><span jhiTranslate="managerCareApp.categoria.nombre">Nombre</span></th>
                     <th scope="col" ><span jhiTranslate="managerCareApp.categoria.descripcion">Descripcion</span></th>
                     <th scope="col" ><span jhiTranslate="managerCareApp.categoria.objetivo">Objetivo</span></th>
-                    <th scope="col" ><span jhiTranslate="managerCareApp.categoria.user">User</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -38,11 +37,6 @@
                     <td>
                         <span *ngFor="let objetivo of categoria.objetivos; let last = last">
                             <a class="form-control-static" [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.id }}</a>{{ last ? '' : ', ' }}
-                        </span>
-                    </td>
-                    <td>
-                        <span *ngFor="let user of categoria.users; let last = last">
-                            {{ user.id }}{{ last ? '' : ', ' }}
                         </span>
                     </td>
                     <td class="text-right">

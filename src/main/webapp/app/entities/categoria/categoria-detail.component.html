@@ -12,7 +12,7 @@
                 <dd>
                     <span>{{ categoria.nombre }}</span>
                 </dd>
-                <dt><span jhiTranslate="managerCareApp.categoria.descripcion">Descripcion</span></dt>
+                <dt><span jhiTranslate="managerCareApp.categoria.descripcion" [ngbTooltip]="'managerCareApp.categoria.help.descripcion' | translate">Descripcion</span></dt>
                 <dd>
                     <span>{{ categoria.descripcion }}</span>
                 </dd>
@@ -20,12 +20,6 @@
                 <dd>
                     <span *ngFor="let objetivo of categoria.objetivos; let last = last">
                         <a [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.id }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="managerCareApp.categoria.user">User</span></dt>
-                <dd>
-                    <span *ngFor="let user of categoria.users; let last = last">
-                        {{ user.id }}{{ last ? '' : ', ' }}
                     </span>
                 </dd>
             </dl>
