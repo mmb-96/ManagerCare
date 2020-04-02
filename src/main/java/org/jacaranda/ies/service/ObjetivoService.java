@@ -39,4 +39,11 @@ public interface ObjetivoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get all the objetivos the user.
+     *
+     * @return the list of entities.
+     */
+	List<Objetivo> findObjetivoUser();
 }
