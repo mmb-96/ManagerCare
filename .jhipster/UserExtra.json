@@ -1,0 +1,43 @@
+{
+    "name": "UserExtra",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "userExtra",
+            "javadoc": "Relacion entre Usuario y Usuario Extra.",
+            "relationshipName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "userExtra",
+            "javadoc": "Relacion entre Usuario y Usuario Extra.",
+            "relationshipName": "idResponsable",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "categoria",
+            "otherEntityRelationshipName": "userExtra",
+            "javadoc": "Relacion entre usuario y categoria.",
+            "relationshipName": "categoria",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200402091100",
+    "javadoc": "Entidad User Extra\\n@author Manuel Melero.",
+    "entityTableName": "user_extra",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

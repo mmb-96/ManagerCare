@@ -9,10 +9,6 @@ import { ICategoria, Categoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from './categoria.service';
 import { IObjetivo } from 'app/shared/model/objetivo.model';
 import { ObjetivoService } from 'app/entities/objetivo/objetivo.service';
-import { IUser } from 'app/core/user/user.model';
-import { UserService } from 'app/core/user/user.service';
-
-type SelectableEntity = IObjetivo | IUser;
 
 @Component({
   selector: 'jhi-categoria-update',
@@ -21,20 +17,17 @@ type SelectableEntity = IObjetivo | IUser;
 export class CategoriaUpdateComponent implements OnInit {
   isSaving = false;
   objetivos: IObjetivo[] = [];
-  users: IUser[] = [];
 
   editForm = this.fb.group({
     id: [],
     nombre: [],
     descripcion: [],
-    objetivos: [],
-    users: []
+    objetivos: []
   });
 
   constructor(
     protected categoriaService: CategoriaService,
     protected objetivoService: ObjetivoService,
-    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -44,8 +37,6 @@ export class CategoriaUpdateComponent implements OnInit {
       this.updateForm(categoria);
 
       this.objetivoService.query().subscribe((res: HttpResponse<IObjetivo[]>) => (this.objetivos = res.body || []));
-
-      this.userService.query().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
     });
   }
 
@@ -54,8 +45,7 @@ export class CategoriaUpdateComponent implements OnInit {
       id: categoria.id,
       nombre: categoria.nombre,
       descripcion: categoria.descripcion,
-      objetivos: categoria.objetivos,
-      users: categoria.users
+      objetivos: categoria.objetivos
     });
   }
 
@@ -79,8 +69,7 @@ export class CategoriaUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
       descripcion: this.editForm.get(['descripcion'])!.value,
-      objetivos: this.editForm.get(['objetivos'])!.value,
-      users: this.editForm.get(['users'])!.value
+      objetivos: this.editForm.get(['objetivos'])!.value
     };
   }
 
@@ -100,11 +89,11 @@ export class CategoriaUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: IObjetivo): any {
     return item.id;
   }
 
-  getSelected(selectedVals: SelectableEntity[], option: SelectableEntity): SelectableEntity {
+  getSelected(selectedVals: IObjetivo[], option: IObjetivo): IObjetivo {
     if (selectedVals) {
       for (let i = 0; i < selectedVals.length; i++) {
         if (option.id === selectedVals[i].id) {

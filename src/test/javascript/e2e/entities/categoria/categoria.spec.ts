@@ -44,7 +44,6 @@ describe('Categoria e2e test', () => {
       categoriaUpdatePage.setNombreInput('nombre'),
       categoriaUpdatePage.setDescripcionInput('descripcion')
       // categoriaUpdatePage.objetivoSelectLastOption(),
-      // categoriaUpdatePage.userSelectLastOption(),
     ]);
 
     expect(await categoriaUpdatePage.getNombreInput()).to.eq('nombre', 'Expected Nombre value to be equals to nombre');

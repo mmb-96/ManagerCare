@@ -35,6 +35,7 @@ public class Categoria implements Serializable {
     /**
      * Atributo descripcion.
      */
+    @ApiModelProperty(value = "Atributo descripcion.")
     @Column(name = "descripcion")
     private String descripcion;
 
@@ -47,16 +48,6 @@ public class Categoria implements Serializable {
                joinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "objetivo_id", referencedColumnName = "id"))
     private Set<Objetivo> objetivos = new HashSet<>();
-
-    /**
-     * Relacion entre categoria y usuarios.
-     */
-    @ApiModelProperty(value = "Relacion entre categoria y usuarios.")
-    @ManyToMany
-    @JoinTable(name = "categoria_user",
-               joinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -116,29 +107,6 @@ public class Categoria implements Serializable {
 
     public void setObjetivos(Set<Objetivo> objetivos) {
         this.objetivos = objetivos;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public Categoria users(Set<User> users) {
-        this.users = users;
-        return this;
-    }
-
-    public Categoria addUser(User user) {
-        this.users.add(user);
-        return this;
-    }
-
-    public Categoria removeUser(User user) {
-        this.users.remove(user);
-        return this;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

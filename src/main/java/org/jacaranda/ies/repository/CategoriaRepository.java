@@ -17,13 +17,13 @@ import java.util.Optional;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
-    @Query(value = "select distinct categoria from Categoria categoria left join fetch categoria.objetivos left join fetch categoria.users",
+    @Query(value = "select distinct categoria from Categoria categoria left join fetch categoria.objetivos",
         countQuery = "select count(distinct categoria) from Categoria categoria")
     Page<Categoria> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct categoria from Categoria categoria left join fetch categoria.objetivos left join fetch categoria.users")
+    @Query("select distinct categoria from Categoria categoria left join fetch categoria.objetivos")
     List<Categoria> findAllWithEagerRelationships();
 
-    @Query("select categoria from Categoria categoria left join fetch categoria.objetivos left join fetch categoria.users where categoria.id =:id")
+    @Query("select categoria from Categoria categoria left join fetch categoria.objetivos where categoria.id =:id")
     Optional<Categoria> findOneWithEagerRelationships(@Param("id") Long id);
 }

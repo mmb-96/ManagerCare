@@ -8,6 +8,7 @@
         },
         {
             "fieldName": "descripcion",
+            "javadoc": "Atributo descripcion.",
             "fieldType": "String"
         }
     ],
@@ -18,15 +19,6 @@
             "otherEntityRelationshipName": "categoria",
             "javadoc": "Relacion entre categoria y objetivos.",
             "relationshipName": "objetivo",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "user",
-            "otherEntityRelationshipName": "categoria",
-            "javadoc": "Relacion entre categoria y usuarios.",
-            "relationshipName": "user",
             "otherEntityField": "id",
             "ownerSide": true
         }

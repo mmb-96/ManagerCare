@@ -1,0 +1,23 @@
+{
+  "managerCareApp": {
+    "categoriaAsc": {
+      "home": {
+        "title": "Categoria Ascs",
+        "createLabel": "Crear nuevo Categoria Asc",
+        "createOrEditLabel": "Crear o editar Categoria Asc",
+        "notFound": "Ningún Categoria Ascs encontrado"
+      },
+      "created": "Un nuevo Categoria Asc ha sido creado con el identificador {{ param }}",
+      "updated": "Un Categoria Asc ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Categoria Asc ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Categoria Asc {{ id }}?"
+      },
+      "detail": {
+        "title": "Categoria Asc"
+      },
+      "idHijo": "Id Hijo",
+      "idPadre": "Id Padre"
+    }
+  }
+}

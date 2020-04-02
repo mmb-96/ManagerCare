@@ -12,6 +12,8 @@
         "tipo": "Tipo",
         "puntosConseguidos": "Puntos Conseguidos",
         "objetivosConseguidos": "Objetivos Conseguidos",
+        "userExtra": "User Extra",
+        "categoriaAsc": "Categoria Asc",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

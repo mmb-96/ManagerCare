@@ -1,0 +1,34 @@
+{
+    "name": "CategoriaAsc",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "categoria",
+            "otherEntityRelationshipName": "categoriaAsc",
+            "javadoc": "Relacion entre categoria y Categoria Asc.",
+            "relationshipName": "idHijo",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "categoria",
+            "otherEntityRelationshipName": "categoriaAsc",
+            "javadoc": "Relacion entre categoria y Categoria Asc.",
+            "relationshipName": "idPadre",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200402091400",
+    "javadoc": "Entidad Categoria Asc\\n@author Manuel Melero.",
+    "entityTableName": "categoria_asc",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
