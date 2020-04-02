@@ -9,6 +9,10 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./objetivo/objetivo.module').then(m => m.ManagerCareObjetivoModule)
       },
       {
+        path: 'objetivo-user',
+        loadChildren: () => import('./objetivo-user/objetivo-user.module').then(m => m.ManagerCareObjetivoUserModule)
+      },
+      {
         path: 'categoria',
         loadChildren: () => import('./categoria/categoria.module').then(m => m.ManagerCareCategoriaModule)
       },

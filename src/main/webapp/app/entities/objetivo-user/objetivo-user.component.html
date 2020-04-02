@@ -1,0 +1,53 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managerCareApp.objetivo.home.title">Objetivos</span>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="objetivos?.length === 0">
+        <span jhiTranslate="managerCareApp.objetivo.home.notFound">No objetivos found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="objetivos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivo.nombre">Nombre</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivo.descripcion">Descripcion</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivo.url">Url</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivo.puntos">Puntos</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivo.tipo">Tipo</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let objetivo of objetivos ;trackBy: trackId">
+                    <td><a [routerLink]="['/objetivo', objetivo.id, 'view']">{{ objetivo.id }}</a></td>
+                    <td>{{ objetivo.nombre }}</td>
+                    <td>{{ objetivo.descripcion }}</td>
+                    <td>{{ objetivo.url }}</td>
+                    <td>{{ objetivo.puntos }}</td>
+                    <td>
+                        <div *ngIf="objetivo.tipo">
+                            <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/objetivo', objetivo.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
