@@ -13,12 +13,14 @@ import { ObjetivoUserService } from './objetivo-user.service';
 })
 export class ObjetivoUserComponent implements OnInit, OnDestroy {
   objetivos?: IObjetivo[];
+  objetivosNext?: IObjetivo[];
   eventSubscriber?: Subscription;
 
   constructor(protected objetivoService: ObjetivoUserService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.objetivoService.query().subscribe((res: HttpResponse<IObjetivo[]>) => (this.objetivos = res.body || []));
+    this.objetivoService.query2().subscribe((res: HttpResponse<IObjetivo[]>) => (this.objetivosNext = res.body || []));
   }
 
   ngOnInit(): void {
