@@ -13,6 +13,7 @@ type EntityArrayResponseType = HttpResponse<IObjetivo[]>;
 export class ObjetivoUserService {
   public resourceUrl = SERVER_API_URL + 'api/objetivos';
   public resourceUrl2 = SERVER_API_URL + 'api/objetivos-user';
+  public resourceUrl3 = SERVER_API_URL + 'api/objetivos-user-next';
 
   constructor(protected http: HttpClient) {}
 
@@ -23,5 +24,10 @@ export class ObjetivoUserService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IObjetivo[]>(this.resourceUrl2, { params: options, observe: 'response' });
+  }
+
+  query2(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IObjetivo[]>(this.resourceUrl3, { params: options, observe: 'response' });
   }
 }
