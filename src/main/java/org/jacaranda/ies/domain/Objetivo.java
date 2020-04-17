@@ -1,16 +1,25 @@
 package org.jacaranda.ies.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Entidad Objetivo\n@author Manuel Melero.
@@ -63,8 +72,8 @@ public class Objetivo implements Serializable {
     @JsonIgnoreProperties("objetivos")
     private Tipo tipo;
 
-    @ManyToMany(mappedBy = "objetivos")
-    @JsonIgnore
+    @ManyToMany(mappedBy = "objetivos", fetch = FetchType.LAZY)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<Categoria> categorias = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

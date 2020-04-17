@@ -46,4 +46,11 @@ public interface ObjetivoService {
      * @return the list of entities.
      */
 	List<Objetivo> findObjetivoUser();
+
+    /**
+     * Get all the objetivos the categoria.
+     *
+     * @return the list of entities.
+     */
+	List<Objetivo> findObjetivoCat();
 }
