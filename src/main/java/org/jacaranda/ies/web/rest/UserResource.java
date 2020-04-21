@@ -148,6 +148,20 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+	  /**
+	  * {@code GET /users-teams} : get all users from a responsible .
+	  *
+	  * @param pageable the pagination information.
+	  * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
+	  */
+	 @GetMapping("/users-teams")
+	 public ResponseEntity<List<UserDTO>> getAllUsersTeams(Pageable pageable) {
+	     final Page<UserDTO> page = userService.findAllTeams(pageable);
+	     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	     return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	 }
+  
 
     /**
      * Gets a list of all roles.

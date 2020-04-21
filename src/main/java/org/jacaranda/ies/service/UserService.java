@@ -241,6 +241,17 @@ public class UserService {
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
+    
+    /**
+     * Get all the User.
+     *
+     * @return the page of entities DTO.
+     */
+    @Transactional(readOnly = true)
+    public Page<UserDTO> findAllTeams(Pageable pageable) {
+        log.debug("Request to get all User Teams");
+        return userRepository.findByIdResponsableIsCurrentUser(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
