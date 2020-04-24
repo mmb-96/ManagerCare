@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userTeams">
+            <h2>Miembro Equipo</span> {{ userTeams.login }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+
+                <dt><span jhiTranslate="userManagement.firstName">First Name</span></dt>
+                <dd>{{ userTeams.firstName }}</dd>
+
+                <dt><span jhiTranslate="userManagement.lastName">Last Name</span></dt>
+                <dd>{{ userTeams.lastName }}</dd>
+
+                <dt><span jhiTranslate="userManagement.email">Email</span></dt>
+                <dd>{{ userTeams.email }}</dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+        </div>
+    </div>
+</div>
