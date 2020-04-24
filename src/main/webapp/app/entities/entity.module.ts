@@ -36,6 +36,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'categoria-asc',
         loadChildren: () => import('./categoria-asc/categoria-asc.module').then(m => m.ManagerCareCategoriaAscModule)
+      },
+      {
+        path: 'user-teams',
+        loadChildren: () => import('./user-teams/user-teams.module').then(m => m.ManagerCareUserTeamsModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
