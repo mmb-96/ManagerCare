@@ -2,9 +2,9 @@
     <h2 id="page-heading">
         <span jhiTranslate="managerCareApp.categoriaAsc.home.title">Categoria Ascs</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria-asc" [routerLink]="['/categoria-asc/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria-asc" [routerLink]="['/categoria-asc/new']">
             <fa-icon icon="plus"></fa-icon>
-            <span *jhiHasAnyAuthority="'ROLE_ADMIN'" jhiTranslate="managerCareApp.categoriaAsc.home.createLabel">
+            <span jhiTranslate="managerCareApp.categoriaAsc.home.createLabel">
             Create a new Categoria Asc
             </span>
         </button>
