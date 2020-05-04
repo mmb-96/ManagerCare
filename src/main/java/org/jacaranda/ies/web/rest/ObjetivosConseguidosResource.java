@@ -104,6 +104,17 @@ public class ObjetivosConseguidosResource {
         Optional<ObjetivosConseguidos> objetivosConseguidos = objetivosConseguidosService.findOne(id);
         return ResponseUtil.wrapOrNotFound(objetivosConseguidos);
     }
+    
+    /**
+     * {@code GET  /objetivos-ST/:{login} : get all the objetivosConseguidos.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of objetivosConseguidos in body.
+     */
+    @GetMapping("/objetivos-ST/{login}")
+    public List<ObjetivosConseguidos> getAllObjetivosConseguidos(@PathVariable String login) {
+        log.debug("REST request to get ObjetivosConseguidos Miembro del equipo : {}", login);
+        return objetivosConseguidosService.findByUserObjetivo(login);
+    }
 
     /**
      * {@code DELETE  /objetivos-conseguidos/:id} : delete the "id" objetivosConseguidos.
