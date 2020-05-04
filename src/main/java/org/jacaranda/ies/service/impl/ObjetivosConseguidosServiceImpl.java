@@ -63,6 +63,20 @@ public class ObjetivosConseguidosServiceImpl implements ObjetivosConseguidosServ
         log.debug("Request to get ObjetivosConseguidos : {}", id);
         return objetivosConseguidosRepository.findById(id);
     }
+    
+    /**
+     * Get one objetivosConseguidos by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ObjetivosConseguidos> findByUserObjetivo(String login) {
+        log.debug("Request to get ObjetivosConseguidos : {}", login);
+        return objetivosConseguidosRepository.findByUserObjetivo(login);
+    }
+
 
     /**
      * Delete the objetivosConseguidos by id.

@@ -39,4 +39,6 @@ public interface ObjetivosConseguidosService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+	List<ObjetivosConseguidos> findByUserObjetivo(String login);
 }
