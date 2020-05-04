@@ -1,7 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="userTeams">
-            <h2>Miembro Equipo</span> {{ userTeams.login }}</h2>
+            <h2 id="page-heading">
+                <span>Miembros Equipo</span>
+                {{ userTeams.login }}
+            </h2>
 
             <hr>
 
@@ -18,13 +21,54 @@
                 <dt><span jhiTranslate="userManagement.email">Email</span></dt>
                 <dd>{{ userTeams.email }}</dd>
             </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
         </div>
     </div>
+</div>
+<br>
+<div>
+    <h3 id="page-heading">
+        <span jhiTranslate="managerCareApp.objetivosConseguidos.home.title">Objetivos Conseguidos</span>
+    </h3>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="objetivosConseguidos?.length === 0">
+        <span jhiTranslate="managerCareApp.objetivosConseguidos.home.notFound">No objetivosConseguidos found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="objetivosConseguidos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.estado">Estado</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaApertura">Fecha Apertura</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.fechaCierre">Fecha Cierre</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.user">User</span></th>
+                    <th scope="col" ><span jhiTranslate="managerCareApp.objetivosConseguidos.objetivo">Objetivo</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let objetivosConseguidos of objetivosConseguidos">
+                    <td><a [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'view']">{{ objetivosConseguidos.id }}</a></td>
+                    <td>{{ objetivosConseguidos.estado }}</td>
+                    <td>{{ objetivosConseguidos.fechaApertura | date:'medium' }}</td>
+                    <td>{{ objetivosConseguidos.fechaCierre | date:'medium' }}</td>
+                    <td>
+                        {{ objetivosConseguidos.user?.id }}
+                    </td>
+                    <td>
+                        <div *ngIf="objetivosConseguidos.objetivo">
+                            <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']" >{{ objetivosConseguidos.objetivo?.id }}</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+        (click)="previousState()"
+        class="btn btn-info">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+    </button>
+
 </div>
