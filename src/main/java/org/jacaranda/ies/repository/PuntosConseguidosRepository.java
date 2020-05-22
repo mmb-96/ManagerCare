@@ -3,6 +3,7 @@ package org.jacaranda.ies.repository;
 import org.jacaranda.ies.domain.PuntosConseguidos;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface PuntosConseguidosRepository extends JpaRepository<PuntosConsegu
 
     @Query("select puntosConseguidos from PuntosConseguidos puntosConseguidos where puntosConseguidos.user.login = ?#{principal.username}")
     List<PuntosConseguidos> findByUserIsCurrentUser();
+    
+    @Query("select puntosConseguidos from PuntosConseguidos puntosConseguidos where puntosConseguidos.user.login =:login")
+    List<PuntosConseguidos> findByUserPuntos(@Param("login") String login);
+    
 }

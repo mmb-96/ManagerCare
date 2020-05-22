@@ -63,6 +63,19 @@ public class PuntosConseguidosServiceImpl implements PuntosConseguidosService {
         log.debug("Request to get PuntosConseguidos : {}", id);
         return puntosConseguidosRepository.findById(id);
     }
+    
+    /**
+     * Get one puntosConseguidos by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<PuntosConseguidos> findByUserPuntos(String login) {
+        log.debug("Request to get PuntosConseguidos : {}", login);
+        return puntosConseguidosRepository.findByUserPuntos(login);
+    }
 
     /**
      * Delete the puntosConseguidos by id.
