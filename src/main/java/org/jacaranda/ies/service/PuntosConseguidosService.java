@@ -39,4 +39,13 @@ public interface PuntosConseguidosService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get the puntosConseguidos from the users.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+	List<PuntosConseguidos> findByUserPuntos(String login);
+	
 }

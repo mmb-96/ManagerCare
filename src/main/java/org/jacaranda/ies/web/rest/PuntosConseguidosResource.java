@@ -104,6 +104,18 @@ public class PuntosConseguidosResource {
         Optional<PuntosConseguidos> puntosConseguidos = puntosConseguidosService.findOne(id);
         return ResponseUtil.wrapOrNotFound(puntosConseguidos);
     }
+    
+    /**
+     * {@code GET  /puntos-conseguidos-user/:login} : get the puntosConseguidos from the users.
+     *
+     * @param id the id of the puntosConseguidos to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the puntosConseguidos, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/puntos-conseguidos-user/{login}")
+    public List<PuntosConseguidos> getPuntosConseguidos(@PathVariable String login) {
+        log.debug("REST request to get PuntosConseguidos : {}", login);
+        return puntosConseguidosService.findByUserPuntos(login);
+    }
 
     /**
      * {@code DELETE  /puntos-conseguidos/:id} : delete the "id" puntosConseguidos.
