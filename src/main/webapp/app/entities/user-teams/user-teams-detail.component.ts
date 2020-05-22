@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { IUser } from 'app/core/user/user.model';
 import { IObjetivosConseguidos } from 'app/shared/model/objetivos-conseguidos.model';
+import { IPuntosConseguidos } from 'app/shared/model/puntos-conseguidos.model';
 import { HttpResponse } from '@angular/common/http';
 import { UserTeamsService } from './user-teams.service';
 
@@ -13,13 +14,13 @@ import { UserTeamsService } from './user-teams.service';
 export class UserTeamsDetailComponent implements OnInit {
   userTeams: IUser | null = null;
   objetivosConseguidos?: IObjetivosConseguidos[];
+  puntosConseguidos?: IPuntosConseguidos[];
 
   constructor(protected activatedRoute: ActivatedRoute, private service: UserTeamsService) {}
 
   loadAll(login: string): void {
-    this.service
-      .findObject(login)
-      .subscribe((res: HttpResponse<IObjetivosConseguidos[]>) => (this.objetivosConseguidos = res.body || []));
+    this.service.findObject(login).subscribe((res: HttpResponse<IObjetivosConseguidos[]>) => (this.objetivosConseguidos = res.body || []));
+    this.service.findPuntos(login).subscribe((res: HttpResponse<IPuntosConseguidos[]>) => (this.puntosConseguidos = res.body || []));
   }
 
   ngOnInit(): void {
