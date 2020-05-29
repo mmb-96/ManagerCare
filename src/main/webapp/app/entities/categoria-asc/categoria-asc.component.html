@@ -33,12 +33,12 @@
                     <td><a [routerLink]="['/categoria-asc', categoriaAsc.id, 'view']">{{ categoriaAsc.id }}</a></td>
                     <td>
                         <div *ngIf="categoriaAsc.idHijo">
-                            <a [routerLink]="['/categoria', categoriaAsc.idHijo?.id, 'view']" >{{ categoriaAsc.idHijo?.id }}</a>
+                            <a [routerLink]="['/categoria', categoriaAsc.idHijo?.id, 'view']" >{{ categoriaAsc.idHijo?.nombre }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="categoriaAsc.idPadre">
-                            <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']" >{{ categoriaAsc.idPadre?.id }}</a>
+                            <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']" >{{ categoriaAsc.idPadre?.nombre }}</a>
                         </div>
                     </td>
                     <td class="text-right">

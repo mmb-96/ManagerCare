@@ -15,7 +15,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.userExtra.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
                     </select>
                 </div>
 
@@ -23,7 +23,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.userExtra.idResponsable" for="field_idResponsable">Id Responsable</label>
                     <select class="form-control" id="field_idResponsable" name="idResponsable" formControlName="idResponsable">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === editForm.get('idResponsable')!.value?.id ? editForm.get('idResponsable')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                        <option [ngValue]="userOption.id === editForm.get('idResponsable')!.value?.id ? editForm.get('idResponsable')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
                     </select>
                 </div>
 
@@ -31,7 +31,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.userExtra.categoria" for="field_categoria">Categoria</label>
                     <select class="form-control" id="field_categoria" name="categoria" formControlName="categoria">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="categoriaOption.id === editForm.get('categoria')!.value?.id ? editForm.get('categoria')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.id }}</option>
+                        <option [ngValue]="categoriaOption.id === editForm.get('categoria')!.value?.id ? editForm.get('categoria')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.nombre }}</option>
                     </select>
                 </div>
             </div>

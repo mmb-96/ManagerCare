@@ -15,7 +15,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.categoriaAsc.idHijo" for="field_idHijo">Id Hijo</label>
                     <select class="form-control" id="field_idHijo" name="idHijo" formControlName="idHijo">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="categoriaOption.id === editForm.get('idHijo')!.value?.id ? editForm.get('idHijo')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.id }}</option>
+                        <option [ngValue]="categoriaOption.id === editForm.get('idHijo')!.value?.id ? editForm.get('idHijo')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.nombre }}</option>
                     </select>
                 </div>
 
@@ -23,7 +23,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.categoriaAsc.idPadre" for="field_idPadre">Id Padre</label>
                     <select class="form-control" id="field_idPadre" name="idPadre" formControlName="idPadre">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="categoriaOption.id === editForm.get('idPadre')!.value?.id ? editForm.get('idPadre')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.id }}</option>
+                        <option [ngValue]="categoriaOption.id === editForm.get('idPadre')!.value?.id ? editForm.get('idPadre')!.value : categoriaOption" *ngFor="let categoriaOption of categorias; trackBy: trackById">{{ categoriaOption.nombre }}</option>
                     </select>
                 </div>
             </div>

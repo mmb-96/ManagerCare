@@ -38,11 +38,11 @@
                     <td>{{ objetivosConseguidos.fechaApertura | date:'medium' }}</td>
                     <td>{{ objetivosConseguidos.fechaCierre | date:'medium' }}</td>
                     <td>
-                        {{ objetivosConseguidos.user?.id }}
+                        {{ objetivosConseguidos.user?.login }}
                     </td>
                     <td>
                         <div *ngIf="objetivosConseguidos.objetivo">
-                            <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']" >{{ objetivosConseguidos.objetivo?.id }}</a>
+                            <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']" >{{ objetivosConseguidos.objetivo?.nombre }}</a>
                         </div>
                     </td>
                     <td class="text-right">

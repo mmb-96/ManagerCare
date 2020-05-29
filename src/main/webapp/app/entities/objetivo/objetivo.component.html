@@ -40,7 +40,7 @@
                     <td>{{ objetivo.puntos }}</td>
                     <td>
                         <div *ngIf="objetivo.tipo">
-                            <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.id }}</a>
+                            <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.nombre }}</a>
                         </div>
                     </td>
                     <td class="text-right">

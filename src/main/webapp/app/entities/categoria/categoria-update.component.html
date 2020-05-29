@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label jhiTranslate="managerCareApp.categoria.objetivo" for="field_objetivos">Objetivo</label>
                     <select class="form-control" id="field_objetivos" multiple name="objetivos" formControlName="objetivos">
-                        <option [ngValue]="getSelected(editForm.get('objetivos')!.value, objetivoOption)" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.id }}</option>
+                        <option [ngValue]="getSelected(editForm.get('objetivos')!.value, objetivoOption)" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.nombre }}</option>
                     </select>
                 </div>
             </div>

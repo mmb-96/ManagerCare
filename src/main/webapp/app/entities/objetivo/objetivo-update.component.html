@@ -39,7 +39,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.objetivo.tipo" for="field_tipo">Tipo</label>
                     <select class="form-control" id="field_tipo" name="tipo" formControlName="tipo">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption" *ngFor="let tipoOption of tipos; trackBy: trackById">{{ tipoOption.id }}</option>
+                        <option [ngValue]="tipoOption.id === editForm.get('tipo')!.value?.id ? editForm.get('tipo')!.value : tipoOption" *ngFor="let tipoOption of tipos; trackBy: trackById">{{ tipoOption.nombre }}</option>
                     </select>
                 </div>
             </div>

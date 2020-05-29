@@ -34,12 +34,12 @@
                     <td>{{ objetivo.puntos }}</td>
                     <td>
                         <div *ngIf="objetivo.tipo">
-                            <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.id }}</a>
+                            <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.nombre }}</a>
                         </div>
                     </td>
                     <td>
                         <span *ngFor="let categoria of objetivo.categorias; let last = last">
-                            <a class="form-control-static" [routerLink]="['/categoria', categoria?.id, 'view']">{{ categoria.id }}</a>{{ last ? '' : ', ' }}
+                            <a class="form-control-static" [routerLink]="['/categoria', categoria?.id, 'view']">{{ categoria.nombre }}</a>{{ last ? '' : ', ' }}
                         </span>
                     </td>
                     <td class="text-right">
@@ -88,12 +88,12 @@
                     <td>{{ objetivoNex.puntos }}</td>
                     <td>
                         <div *ngIf="objetivoNex.tipo">
-                            <a [routerLink]="['/tipo', objetivoNex.tipo?.id, 'view']" >{{ objetivoNex.tipo?.id }}</a>
+                            <a [routerLink]="['/tipo', objetivoNex.tipo?.id, 'view']" >{{ objetivoNex.tipo?.nombre }}</a>
                         </div>
                     </td>
                     <td>
                         <span *ngFor="let categoriaNex of objetivoNex.categorias; let last = last">
-                            <a class="form-control-static" [routerLink]="['/categoria', categoriaNex?.id, 'view']">{{ categoriaNex.id }}</a>{{ last ? '' : ', ' }}
+                            <a class="form-control-static" [routerLink]="['/categoria', categoriaNex?.id, 'view']">{{ categoriaNex.nombre }}</a>{{ last ? '' : ', ' }}
                         </span>
                     </td>
                     <td class="text-right">
