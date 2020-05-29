@@ -57,7 +57,8 @@
         "authenticated": {
           "prefix": "Si desea ",
           "link": "iniciar sesión",
-          "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrador (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
+          "suffix": ", puede intentar ",
+          "suffix2": "o hablar con su responsable. "
         },
         "register": {
           "noaccount": "¿Aún no tienes una cuenta?",
@@ -142,5 +143,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Pie de página"
+  "footer": "ManagerCare"
 }
