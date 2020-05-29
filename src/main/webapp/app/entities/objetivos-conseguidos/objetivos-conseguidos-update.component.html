@@ -35,7 +35,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.login }}</option>
                     </select>
                 </div>
 
@@ -43,7 +43,7 @@
                     <label class="form-control-label" jhiTranslate="managerCareApp.objetivosConseguidos.objetivo" for="field_objetivo">Objetivo</label>
                     <select class="form-control" id="field_objetivo" name="objetivo" formControlName="objetivo">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="objetivoOption.id === editForm.get('objetivo')!.value?.id ? editForm.get('objetivo')!.value : objetivoOption" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.id }}</option>
+                        <option [ngValue]="objetivoOption.id === editForm.get('objetivo')!.value?.id ? editForm.get('objetivo')!.value : objetivoOption" *ngFor="let objetivoOption of objetivos; trackBy: trackById">{{ objetivoOption.nombre }}</option>
                     </select>
                 </div>
             </div>

@@ -33,14 +33,14 @@
                 <tr *ngFor="let userExtra of userExtras ;trackBy: trackId">
                     <td><a [routerLink]="['/user-extra', userExtra.id, 'view']">{{ userExtra.id }}</a></td>
                     <td>
-                        {{ userExtra.user?.id }}
+                        {{ userExtra.user?.login }}
                     </td>
                     <td>
-                        {{ userExtra.idResponsable?.id }}
+                        {{ userExtra.idResponsable?.login }}
                     </td>
                     <td>
                         <div *ngIf="userExtra.categoria">
-                            <a [routerLink]="['/categoria', userExtra.categoria?.id, 'view']" >{{ userExtra.categoria?.id }}</a>
+                            <a [routerLink]="['/categoria', userExtra.categoria?.id, 'view']" >{{ userExtra.categoria?.nombre }}</a>
                         </div>
                     </td>
                     <td class="text-right">

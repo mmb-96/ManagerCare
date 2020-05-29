@@ -10,16 +10,16 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="managerCareApp.userExtra.user">User</span></dt>
                 <dd>
-                    {{ userExtra.user?.id }}
+                    {{ userExtra.user?.login }}
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.userExtra.idResponsable">Id Responsable</span></dt>
                 <dd>
-                    {{ userExtra.idResponsable?.id }}
+                    {{ userExtra.idResponsable?.login }}
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.userExtra.categoria">Categoria</span></dt>
                 <dd>
                     <div *ngIf="userExtra.categoria">
-                        <a [routerLink]="['/categoria', userExtra.categoria?.id, 'view']">{{ userExtra.categoria?.id }}</a>
+                        <a [routerLink]="['/categoria', userExtra.categoria?.id, 'view']">{{ userExtra.categoria?.nombre }}</a>
                     </div>
                 </dd>
             </dl>
@@ -30,7 +30,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/user-extra', userExtra.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

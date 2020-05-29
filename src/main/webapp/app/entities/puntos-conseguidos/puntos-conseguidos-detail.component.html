@@ -18,7 +18,7 @@
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.puntosConseguidos.user">User</span></dt>
                 <dd>
-                    {{ puntosConseguidos.user?.id }}
+                    {{ puntosConseguidos.user?.login }}
                 </dd>
             </dl>
 
@@ -28,7 +28,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/puntos-conseguidos', puntosConseguidos.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

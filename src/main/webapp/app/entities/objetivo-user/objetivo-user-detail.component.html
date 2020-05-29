@@ -27,7 +27,7 @@
                 <dt><span jhiTranslate="managerCareApp.objetivo.tipo">Tipo</span></dt>
                 <dd>
                     <div *ngIf="objetivo.tipo">
-                        <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']">{{ objetivo.tipo?.id }}</a>
+                        <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']">{{ objetivo.tipo?.nombre }}</a>
                     </div>
                 </dd>
             </dl>
@@ -38,7 +38,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/objetivo', objetivo.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

@@ -22,12 +22,12 @@
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.user">User</span></dt>
                 <dd>
-                    {{ objetivosConseguidos.user?.id }}
+                    {{ objetivosConseguidos.user?.login }}
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.objetivosConseguidos.objetivo">Objetivo</span></dt>
                 <dd>
                     <div *ngIf="objetivosConseguidos.objetivo">
-                        <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']">{{ objetivosConseguidos.objetivo?.id }}</a>
+                        <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']">{{ objetivosConseguidos.objetivo?.nombre }}</a>
                     </div>
                 </dd>
             </dl>
@@ -38,7 +38,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

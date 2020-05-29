@@ -19,7 +19,7 @@
                 <dt><span jhiTranslate="managerCareApp.categoria.objetivo">Objetivo</span></dt>
                 <dd>
                     <span *ngFor="let objetivo of categoria.objetivos; let last = last">
-                        <a [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.id }}</a>{{ last ? '' : ', ' }}
+                        <a [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.nombre }}</a>{{ last ? '' : ', ' }}
                     </span>
                 </dd>
             </dl>
@@ -30,7 +30,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/categoria', categoria.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

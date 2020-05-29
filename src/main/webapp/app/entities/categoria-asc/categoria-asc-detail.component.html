@@ -11,13 +11,13 @@
                 <dt><span jhiTranslate="managerCareApp.categoriaAsc.idHijo">Id Hijo</span></dt>
                 <dd>
                     <div *ngIf="categoriaAsc.idHijo">
-                        <a [routerLink]="['/categoria', categoriaAsc.idHijo?.id, 'view']">{{ categoriaAsc.idHijo?.id }}</a>
+                        <a [routerLink]="['/categoria', categoriaAsc.idHijo?.id, 'view']">{{ categoriaAsc.idHijo?.nombre }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="managerCareApp.categoriaAsc.idPadre">Id Padre</span></dt>
                 <dd>
                     <div *ngIf="categoriaAsc.idPadre">
-                        <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']">{{ categoriaAsc.idPadre?.id }}</a>
+                        <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']">{{ categoriaAsc.idPadre?.nombre }}</a>
                     </div>
                 </dd>
             </dl>
@@ -28,7 +28,7 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
                     [routerLink]="['/categoria-asc', categoriaAsc.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

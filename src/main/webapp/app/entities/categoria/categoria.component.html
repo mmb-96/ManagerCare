@@ -36,7 +36,7 @@
                     <td>{{ categoria.descripcion }}</td>
                     <td>
                         <span *ngFor="let objetivo of categoria.objetivos; let last = last">
-                            <a class="form-control-static" [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.id }}</a>{{ last ? '' : ', ' }}
+                            <a class="form-control-static" [routerLink]="['/objetivo', objetivo?.id, 'view']">{{ objetivo.nombre }}</a>{{ last ? '' : ', ' }}
                         </span>
                     </td>
                     <td class="text-right">
