@@ -4,6 +4,7 @@ import org.jacaranda.ies.config.Constants;
 import org.jacaranda.ies.domain.User;
 import org.jacaranda.ies.repository.UserRepository;
 import org.jacaranda.ies.security.AuthoritiesConstants;
+import org.jacaranda.ies.security.ResourceAuthorization;
 import org.jacaranda.ies.service.MailService;
 import org.jacaranda.ies.service.UserService;
 import org.jacaranda.ies.service.dto.UserDTO;
@@ -70,11 +71,13 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+    private final ResourceAuthorization resourceAuthorization;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, ResourceAuthorization resourceAuthorization) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.resourceAuthorization = resourceAuthorization;
     }
 
     /**
@@ -143,6 +146,7 @@ public class UserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
     @GetMapping("/users")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -156,6 +160,7 @@ public class UserResource {
 	  * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
 	  */
 	 @GetMapping("/users-teams")
+	 @PreAuthorize("@resourceAuthorization.canListTeamMembers()")
 	 public ResponseEntity<List<UserDTO>> getAllUsersTeams(Pageable pageable) {
 	     final Page<UserDTO> page = userService.findAllTeams(pageable);
 	     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -180,6 +185,7 @@ public class UserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the "login" user, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @PreAuthorize("@resourceAuthorization.canAccessUser(#login)")
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Collection;
 
 /**
  * Spring Data  repository for the ObjetivosConseguidos entity.
@@ -20,4 +21,6 @@ public interface ObjetivosConseguidosRepository extends JpaRepository<ObjetivosC
     
     @Query("select objetivosConseguidos from ObjetivosConseguidos objetivosConseguidos where objetivosConseguidos.user.login =:login")
     List<ObjetivosConseguidos> findByUserObjetivo(@Param("login") String login);
+
+    List<ObjetivosConseguidos> findByUserLoginIn(Collection<String> logins);
 }

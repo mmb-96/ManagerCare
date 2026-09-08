@@ -2,6 +2,7 @@ package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.domain.ObjetivosConseguidos;
 import org.jacaranda.ies.security.AuthoritiesConstants;
+import org.jacaranda.ies.security.ResourceAuthorization;
 import org.jacaranda.ies.service.ObjetivosConseguidosService;
 import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
 
@@ -34,9 +35,11 @@ public class ObjetivosConseguidosResource {
     private String applicationName;
 
     private final ObjetivosConseguidosService objetivosConseguidosService;
+    private final ResourceAuthorization resourceAuthorization;
 
-    public ObjetivosConseguidosResource(ObjetivosConseguidosService objetivosConseguidosService) {
+    public ObjetivosConseguidosResource(ObjetivosConseguidosService objetivosConseguidosService, ResourceAuthorization resourceAuthorization) {
         this.objetivosConseguidosService = objetivosConseguidosService;
+        this.resourceAuthorization = resourceAuthorization;
     }
 
     /**
@@ -87,9 +90,10 @@ public class ObjetivosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of objetivosConseguidos in body.
      */
     @GetMapping("/objetivos-conseguidos")
+    @PreAuthorize("@resourceAuthorization.isAuthenticated()")
     public List<ObjetivosConseguidos> getAllObjetivosConseguidos() {
         log.debug("REST request to get all ObjetivosConseguidos");
-        return objetivosConseguidosService.findAll();
+        return resourceAuthorization.accessibleObjetivosConseguidos();
     }
 
     /**
@@ -99,6 +103,7 @@ public class ObjetivosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the objetivosConseguidos, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/objetivos-conseguidos/{id}")
+    @PreAuthorize("@resourceAuthorization.canAccessObjetivosConseguidos(#id)")
     public ResponseEntity<ObjetivosConseguidos> getObjetivosConseguidos(@PathVariable Long id) {
         log.debug("REST request to get ObjetivosConseguidos : {}", id);
         Optional<ObjetivosConseguidos> objetivosConseguidos = objetivosConseguidosService.findOne(id);
@@ -111,6 +116,7 @@ public class ObjetivosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of objetivosConseguidos in body.
      */
     @GetMapping("/objetivos-ST/{login}")
+    @PreAuthorize("@resourceAuthorization.canAccessUser(#login)")
     public List<ObjetivosConseguidos> getAllObjetivosConseguidos(@PathVariable String login) {
         log.debug("REST request to get ObjetivosConseguidos Miembro del equipo : {}", login);
         return objetivosConseguidosService.findByUserObjetivo(login);

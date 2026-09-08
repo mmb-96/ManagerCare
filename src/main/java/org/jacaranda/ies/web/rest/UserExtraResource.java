@@ -2,6 +2,7 @@ package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.domain.UserExtra;
 import org.jacaranda.ies.security.AuthoritiesConstants;
+import org.jacaranda.ies.security.ResourceAuthorization;
 import org.jacaranda.ies.service.UserExtraService;
 import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
 
@@ -34,9 +35,11 @@ public class UserExtraResource {
     private String applicationName;
 
     private final UserExtraService userExtraService;
+    private final ResourceAuthorization resourceAuthorization;
 
-    public UserExtraResource(UserExtraService userExtraService) {
+    public UserExtraResource(UserExtraService userExtraService, ResourceAuthorization resourceAuthorization) {
         this.userExtraService = userExtraService;
+        this.resourceAuthorization = resourceAuthorization;
     }
 
     /**
@@ -87,9 +90,10 @@ public class UserExtraResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userExtras in body.
      */
     @GetMapping("/user-extras")
+    @PreAuthorize("@resourceAuthorization.isAuthenticated()")
     public List<UserExtra> getAllUserExtras() {
         log.debug("REST request to get all UserExtras");
-        return userExtraService.findAll();
+        return resourceAuthorization.accessibleUserExtras();
     }
 
     /**
@@ -99,6 +103,7 @@ public class UserExtraResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userExtra, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/user-extras/{id}")
+    @PreAuthorize("@resourceAuthorization.canAccessUserExtra(#id)")
     public ResponseEntity<UserExtra> getUserExtra(@PathVariable Long id) {
         log.debug("REST request to get UserExtra : {}", id);
         Optional<UserExtra> userExtra = userExtraService.findOne(id);

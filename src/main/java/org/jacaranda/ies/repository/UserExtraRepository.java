@@ -16,4 +16,12 @@ public interface UserExtraRepository extends JpaRepository<UserExtra, Long> {
 
     @Query("select userExtra from UserExtra userExtra where userExtra.idResponsable.login = ?#{principal.username}")
     List<UserExtra> findByIdResponsableIsCurrentUser();
+
+    List<UserExtra> findByUserLogin(String login);
+
+    List<UserExtra> findByIdResponsableLogin(String login);
+
+    boolean existsByUserLoginAndIdResponsableLogin(String userLogin, String responsableLogin);
+
+    boolean existsByIdResponsableLogin(String login);
 }

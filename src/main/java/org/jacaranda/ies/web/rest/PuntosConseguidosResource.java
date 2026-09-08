@@ -2,6 +2,7 @@ package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.domain.PuntosConseguidos;
 import org.jacaranda.ies.security.AuthoritiesConstants;
+import org.jacaranda.ies.security.ResourceAuthorization;
 import org.jacaranda.ies.service.PuntosConseguidosService;
 import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
 
@@ -34,9 +35,11 @@ public class PuntosConseguidosResource {
     private String applicationName;
 
     private final PuntosConseguidosService puntosConseguidosService;
+    private final ResourceAuthorization resourceAuthorization;
 
-    public PuntosConseguidosResource(PuntosConseguidosService puntosConseguidosService) {
+    public PuntosConseguidosResource(PuntosConseguidosService puntosConseguidosService, ResourceAuthorization resourceAuthorization) {
         this.puntosConseguidosService = puntosConseguidosService;
+        this.resourceAuthorization = resourceAuthorization;
     }
 
     /**
@@ -87,9 +90,10 @@ public class PuntosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of puntosConseguidos in body.
      */
     @GetMapping("/puntos-conseguidos")
+    @PreAuthorize("@resourceAuthorization.isAuthenticated()")
     public List<PuntosConseguidos> getAllPuntosConseguidos() {
         log.debug("REST request to get all PuntosConseguidos");
-        return puntosConseguidosService.findAll();
+        return resourceAuthorization.accessiblePuntosConseguidos();
     }
 
     /**
@@ -99,6 +103,7 @@ public class PuntosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the puntosConseguidos, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/puntos-conseguidos/{id}")
+    @PreAuthorize("@resourceAuthorization.canAccessPuntosConseguidos(#id)")
     public ResponseEntity<PuntosConseguidos> getPuntosConseguidos(@PathVariable Long id) {
         log.debug("REST request to get PuntosConseguidos : {}", id);
         Optional<PuntosConseguidos> puntosConseguidos = puntosConseguidosService.findOne(id);
@@ -112,6 +117,7 @@ public class PuntosConseguidosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the puntosConseguidos, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/puntos-conseguidos-user/{login}")
+    @PreAuthorize("@resourceAuthorization.canAccessUser(#login)")
     public List<PuntosConseguidos> getPuntosConseguidos(@PathVariable String login) {
         log.debug("REST request to get PuntosConseguidos : {}", login);
         return puntosConseguidosService.findByUserPuntos(login);
