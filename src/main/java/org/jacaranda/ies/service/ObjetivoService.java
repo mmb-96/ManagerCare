@@ -40,17 +40,4 @@ public interface ObjetivoService {
      */
     void delete(Long id);
 
-    /**
-     * Get all the objetivos the user.
-     *
-     * @return the list of entities.
-     */
-	List<Objetivo> findObjetivoUser();
-
-    /**
-     * Get all the objetivos the categoria.
-     *
-     * @return the list of entities.
-     */
-	List<Objetivo> findObjetivoCat();
 }
