@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Collection;
 
 /**
  * Spring Data  repository for the PuntosConseguidos entity.
@@ -20,5 +21,7 @@ public interface PuntosConseguidosRepository extends JpaRepository<PuntosConsegu
     
     @Query("select puntosConseguidos from PuntosConseguidos puntosConseguidos where puntosConseguidos.user.login =:login")
     List<PuntosConseguidos> findByUserPuntos(@Param("login") String login);
+
+    List<PuntosConseguidos> findByUserLoginIn(Collection<String> logins);
     
 }
