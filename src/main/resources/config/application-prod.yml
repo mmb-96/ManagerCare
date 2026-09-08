@@ -53,16 +53,15 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: manuelpruebasmb@gmail.com
-    password: 6/2/1996
-    protocol: smtp
-    tls: true
+    host: ${SPRING_MAIL_HOST:}
+    port: ${SPRING_MAIL_PORT:}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    protocol: ${SPRING_MAIL_PROTOCOL:smtp}
+    tls: ${SPRING_MAIL_TLS:false}
     properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
+      auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:false}
+      starttls.enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:false}
   thymeleaf:
     cache: true
   sleuth:
@@ -114,12 +113,8 @@ jhipster:
   security:
     authentication:
       jwt:
-        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        # As this is the PRODUCTION configuration, you MUST change the default key, and store it securely:
-        # - In the JHipster Registry (which includes a Spring Cloud Config server)
-        # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
-        # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: NDQ2NjA4ZDcxMjQ2YzkwN2QzNTA3ZWQwMWQ1MmQwNmFlNmYxZDY3YzljNjJlMGM3ZmZhYTA2NGQ5MWMzODMxOWE2NmQwMmU1MjkzMjVkOGNlMWRiMTAyNzdjYjYwNTFkOGJhMmM5NWY1ZjAyZmNlYjUxMGUzZmExY2RkODU0MWY=
+        # Required in production. Empty values are rejected at startup.
+        base64-secret: ${JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET:}
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
@@ -149,3 +144,7 @@ jhipster:
 # ===================================================================
 
 # application:
+
+managercare:
+  mail:
+    enabled: ${MANAGERCARE_MAIL_ENABLED:false}
