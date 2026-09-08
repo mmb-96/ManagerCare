@@ -32,6 +32,7 @@ spring:
     active: dev
     include:
       - swagger
+      - dev-local
       # Uncomment to activate TLS for the dev profile
       #- tls
   devtools:
@@ -64,16 +65,17 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: REMOVED_MC01_MC02_HISTORICAL_SECRET
-    password: REMOVED_MC01_MC02_HISTORICAL_SECRET
+    # Local test SMTP only. Put personal settings in the ignored
+    # application-dev-local.yml file; never commit SMTP credentials.
+    host: localhost
+    port: 1025
+    username:
+    password:
     protocol: smtp
-    tls: true
+    tls: false
     properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
+      auth: false
+      starttls.enable: false
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -110,7 +112,9 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: REMOVED_MC01_MC02_HISTORICAL_SECRET
+        # Configure this in ignored application-dev-local.yml or with
+        # JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET.
+        base64-secret: ${JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET:}
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
@@ -140,3 +144,7 @@ jhipster:
 # ===================================================================
 
 # application:
+
+managercare:
+  mail:
+    enabled: ${MANAGERCARE_MAIL_ENABLED:false}

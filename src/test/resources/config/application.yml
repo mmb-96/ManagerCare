@@ -55,6 +55,12 @@ spring:
     contexts: test
   mail:
     host: localhost
+    port: 1025
+    username:
+    password:
+    properties.mail.smtp:
+      auth: false
+      starttls.enable: false
   main:
     allow-bean-definition-overriding: true
   messages:
@@ -103,8 +109,8 @@ jhipster:
   security:
     authentication:
       jwt:
-        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: REMOVED_MC01_MC02_HISTORICAL_SECRET
+        # Fixed, synthetic key used exclusively by automated tests.
+        base64-secret: TUMwMV9NQzAyX1RFU1RfT05MWV9KV1RfU0lHTklOR19LRVlfTk9UX0ZPUl9ERVZfT1JfUFJPRFVDVElPTl8wMTIzNDU2Nzg5
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
   metrics:

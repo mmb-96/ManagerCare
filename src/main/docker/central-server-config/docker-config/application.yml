@@ -3,12 +3,6 @@ configserver:
   name: Docker JHipster Registry
   status: Connected to the JHipster Registry running in Docker
 
-jhipster:
-  security:
-    authentication:
-      jwt:
-        secret: REMOVED_MC01_MC02_HISTORICAL_SECRET
-
 eureka:
   client:
     service-url:

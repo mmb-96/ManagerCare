@@ -38,6 +38,7 @@ local.properties
 .loadpath
 .factorypath
 /src/main/resources/rebel.xml
+/src/main/resources/config/application-dev-local.yml
 
 # External tool builders
 .externalToolBuilders/**

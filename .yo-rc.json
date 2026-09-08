@@ -21,7 +21,6 @@
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "REMOVED_MC01_MC02_HISTORICAL_SECRET",
     "embeddableLaunchScript": false,
     "useSass": true,
     "clientPackageManager": "npm",

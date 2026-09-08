@@ -28,6 +28,18 @@ Add the `help` flag on any command to see how you can use it. For example, `npm 
 
 The `npm run` command will list all of the scripts available to run for this project.
 
+### Configuration of secrets
+
+Never commit credentials, JWT keys, or local configuration files. Development uses a local SMTP endpoint on `localhost:1025` by default and does not deliver mail unless `MANAGERCARE_MAIL_ENABLED=true`. Personal development settings may be placed in `src/main/resources/config/application-dev-local.yml`, which is ignored by Git and loaded through the `dev-local` profile, or supplied as environment variables. When development authentication is needed, that local file must provide `jhipster.security.authentication.jwt.base64-secret` as a newly generated Base64 value.
+
+Production requires `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET`. It must be a newly generated Base64 value that decodes to at least 64 bytes; the application stops during startup when it is absent, malformed, too short, or when the deprecated non-Base64 JWT property is set. Existing JWTs are intentionally invalid after rotation.
+
+Real mail is disabled by default. To enable it in production, set `MANAGERCARE_MAIL_ENABLED=true` and provide `SPRING_MAIL_HOST`, `SPRING_MAIL_PORT`, `SPRING_MAIL_USERNAME`, and `SPRING_MAIL_PASSWORD`. Optional TLS and protocol settings use the standard Spring variables `SPRING_MAIL_PROTOCOL`, `SPRING_MAIL_TLS`, `SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH`, and `SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE`.
+
+Docker deployments also require `JHIPSTER_REGISTRY_PASSWORD`; monitoring requires `GRAFANA_ADMIN_PASSWORD`. Supply these through the deployment environment, never through committed compose files. The test profile uses an independent, fixed synthetic JWT key and local SMTP configuration only.
+
+To rotate, generate a new production JWT Base64 key outside the repository, update it in the deployment environment, restart every production instance together, and invalidate previously issued sessions. Rotate SMTP, Registry, and Grafana credentials in their providers and deployment environment in the same way. Do not place the new values in source files, documentation, issue trackers, or test fixtures.
+
 ### PWA Support
 
 JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.

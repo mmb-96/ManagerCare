@@ -12,6 +12,8 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -42,17 +44,31 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
+    private final boolean mailEnabled;
+
+    @Autowired
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+            MessageSource messageSource, SpringTemplateEngine templateEngine,
+            @Value("${managercare.mail.enabled:false}") boolean mailEnabled) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+        this.mailEnabled = mailEnabled;
+    }
+
+    public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
+            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+        this(jHipsterProperties, javaMailSender, messageSource, templateEngine, true);
     }
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
+        if (!mailEnabled) {
+            log.info("Email delivery is disabled; skipping email to User '{}'", to);
+            return;
+        }
         log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
             isMultipart, isHtml, to, subject, content);
 
