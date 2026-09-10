@@ -1,8 +1,11 @@
 package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.ManagerCareApp;
+import org.jacaranda.ies.domain.User;
 import org.jacaranda.ies.domain.UserExtra;
+import org.jacaranda.ies.repository.UserRepository;
 import org.jacaranda.ies.repository.UserExtraRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.UserExtraService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -20,6 +25,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -28,8 +34,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class UserExtraResourceIT {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserExtraRepository userExtraRepository;
@@ -144,6 +153,31 @@ public class UserExtraResourceIT {
 
     @Test
     @Transactional
+    public void authorizationRestrictsUserExtrasAndDeniesOrphansSafely() throws Exception {
+        User employee = saveUser("extra-employee");
+        User manager = saveUser("extra-manager");
+        User member = saveUser("extra-member");
+        User outsider = saveUser("extra-outsider");
+        UserExtra own = userExtraRepository.saveAndFlush(new UserExtra().user(employee));
+        UserExtra teamMember = userExtraRepository.saveAndFlush(new UserExtra().user(member).idResponsable(manager));
+        UserExtra orphan = userExtraRepository.saveAndFlush(new UserExtra());
+
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", own.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isOk());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", own.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", teamMember.getId()).with(regularUser(manager.getLogin())))
+            .andExpect(status().isOk());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", teamMember.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", orphan.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isForbidden());
+        restUserExtraMockMvc.perform(get("/api/user-extras/{id}", orphan.getId()).with(administrator()))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
     public void updateUserExtra() throws Exception {
         // Initialize the database
         userExtraService.save(userExtra);
@@ -200,5 +234,22 @@ public class UserExtraResourceIT {
         // Validate the database contains one less item
         List<UserExtra> userExtraList = userExtraRepository.findAll();
         assertThat(userExtraList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    private User saveUser(String login) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword("012345678901234567890123456789012345678901234567890123456789");
+        user.setActivated(true);
+        user.setEmail(login + "@example.test");
+        return userRepository.saveAndFlush(user);
+    }
+
+    private RequestPostProcessor regularUser(String login) {
+        return user(login).authorities(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    }
+
+    private RequestPostProcessor administrator() {
+        return user("extra-admin").authorities(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
     }
 }
