@@ -3,6 +3,7 @@ package org.jacaranda.ies.web.rest;
 import org.jacaranda.ies.ManagerCareApp;
 import org.jacaranda.ies.domain.CategoriaAsc;
 import org.jacaranda.ies.repository.CategoriaAscRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.CategoriaAscService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class CategoriaAscResourceIT {
 
     @Autowired

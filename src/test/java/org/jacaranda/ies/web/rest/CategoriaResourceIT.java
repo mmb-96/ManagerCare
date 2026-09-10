@@ -3,6 +3,7 @@ package org.jacaranda.ies.web.rest;
 import org.jacaranda.ies.ManagerCareApp;
 import org.jacaranda.ies.domain.Categoria;
 import org.jacaranda.ies.repository.CategoriaRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.CategoriaService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class CategoriaResourceIT {
 
     private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";

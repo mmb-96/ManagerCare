@@ -3,6 +3,7 @@ package org.jacaranda.ies.web.rest;
 import org.jacaranda.ies.ManagerCareApp;
 import org.jacaranda.ies.domain.Tipo;
 import org.jacaranda.ies.repository.TipoRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.TipoService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class TipoResourceIT {
 
     private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
