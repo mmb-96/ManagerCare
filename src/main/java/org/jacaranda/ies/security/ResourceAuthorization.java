@@ -2,6 +2,7 @@ package org.jacaranda.ies.security;
 
 import org.jacaranda.ies.domain.ObjetivosConseguidos;
 import org.jacaranda.ies.domain.PuntosConseguidos;
+import org.jacaranda.ies.domain.User;
 import org.jacaranda.ies.domain.UserExtra;
 import org.jacaranda.ies.repository.ObjetivosConseguidosRepository;
 import org.jacaranda.ies.repository.PuntosConseguidosRepository;
@@ -40,6 +41,9 @@ public class ResourceAuthorization {
         if (isAdmin()) {
             return true;
         }
+        if (!hasText(login)) {
+            return false;
+        }
         return currentLogin()
             .map(current -> current.equalsIgnoreCase(login) || userExtraRepository.existsByUserLoginAndIdResponsableLogin(login, current))
             .orElse(false);
@@ -49,21 +53,21 @@ public class ResourceAuthorization {
         if (isAdmin()) {
             return true;
         }
-        return userExtraRepository.findById(id).map(extra -> canAccessUser(extra.getUser().getLogin())).orElse(false);
+        return userExtraRepository.findById(id).map(extra -> canAccessOwner(extra.getUser())).orElse(false);
     }
 
     public boolean canAccessPuntosConseguidos(Long id) {
         if (isAdmin()) {
             return true;
         }
-        return puntosConseguidosRepository.findById(id).map(puntos -> canAccessUser(puntos.getUser().getLogin())).orElse(false);
+        return puntosConseguidosRepository.findById(id).map(puntos -> canAccessOwner(puntos.getUser())).orElse(false);
     }
 
     public boolean canAccessObjetivosConseguidos(Long id) {
         if (isAdmin()) {
             return true;
         }
-        return objetivosConseguidosRepository.findById(id).map(objetivo -> canAccessUser(objetivo.getUser().getLogin())).orElse(false);
+        return objetivosConseguidosRepository.findById(id).map(objetivo -> canAccessOwner(objetivo.getUser())).orElse(false);
     }
 
     public boolean canListTeamMembers() {
@@ -102,7 +106,7 @@ public class ResourceAuthorization {
     private List<UserExtra> accessibleUserExtras(String login) {
         LinkedHashSet<UserExtra> result = new LinkedHashSet<>(userExtraRepository.findByUserLogin(login));
         result.addAll(userExtraRepository.findByIdResponsableLogin(login));
-        return result.stream().collect(Collectors.toList());
+        return result.stream().filter(extra -> canAccessOwner(extra.getUser())).collect(Collectors.toList());
     }
 
     private Collection<String> visibleLogins(String login) {
@@ -112,8 +116,21 @@ public class ResourceAuthorization {
             .map(UserExtra::getUser)
             .filter(java.util.Objects::nonNull)
             .map(user -> user.getLogin())
+            .filter(this::hasText)
             .forEach(result::add);
         return result;
+    }
+
+    private boolean canAccessOwner(User owner) {
+        return Optional.ofNullable(owner)
+            .map(User::getLogin)
+            .filter(this::hasText)
+            .map(this::canAccessUser)
+            .orElse(false);
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
     }
 
     private boolean isAdmin() {

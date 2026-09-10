@@ -94,6 +94,56 @@ class ResourceAuthorizationTest {
     }
 
     @Test
+    void orphanedResourcesAreDeniedToRegularUsersWithoutThrowing() {
+        authenticate("employee", AuthoritiesConstants.USER);
+        when(userExtraRepository.findById(1L)).thenReturn(Optional.of(new UserExtra()));
+        when(puntosRepository.findById(2L)).thenReturn(Optional.of(new PuntosConseguidos()));
+        when(objetivosRepository.findById(3L)).thenReturn(Optional.of(new ObjetivosConseguidos()));
+
+        assertThat(authorization.canAccessUserExtra(1L)).isFalse();
+        assertThat(authorization.canAccessPuntosConseguidos(2L)).isFalse();
+        assertThat(authorization.canAccessObjetivosConseguidos(3L)).isFalse();
+    }
+
+    @Test
+    void orphanedResourcesAreDeniedToResponsibleUsersWithoutThrowing() {
+        authenticate("manager", AuthoritiesConstants.USER);
+        when(userExtraRepository.findById(1L)).thenReturn(Optional.of(new UserExtra()));
+        when(puntosRepository.findById(2L)).thenReturn(Optional.of(new PuntosConseguidos()));
+        when(objetivosRepository.findById(3L)).thenReturn(Optional.of(new ObjetivosConseguidos()));
+
+        assertThat(authorization.canAccessUserExtra(1L)).isFalse();
+        assertThat(authorization.canAccessPuntosConseguidos(2L)).isFalse();
+        assertThat(authorization.canAccessObjetivosConseguidos(3L)).isFalse();
+    }
+
+    @Test
+    void incompleteOwnerRelationIsDeniedWithoutThrowing() {
+        authenticate("employee", AuthoritiesConstants.USER);
+        PuntosConseguidos puntos = new PuntosConseguidos();
+        puntos.setUser(new User());
+        when(puntosRepository.findById(42L)).thenReturn(Optional.of(puntos));
+
+        assertThat(authorization.canAccessPuntosConseguidos(42L)).isFalse();
+        assertThat(authorization.canAccessUser(null)).isFalse();
+    }
+
+    @Test
+    void orphanedResourcesAreExcludedFromResponsibleCollections() {
+        authenticate("manager", AuthoritiesConstants.USER);
+        UserExtra orphan = new UserExtra();
+        orphan.setIdResponsable(user("manager"));
+        when(userExtraRepository.findByIdResponsableLogin("manager")).thenReturn(Collections.singletonList(orphan));
+
+        assertThat(authorization.accessibleUserExtras()).isEmpty();
+        authorization.accessiblePuntosConseguidos();
+        authorization.accessibleObjetivosConseguidos();
+
+        verify(puntosRepository).findByUserLoginIn(argThat(logins -> logins.size() == 1 && logins.contains("manager")));
+        verify(objetivosRepository).findByUserLoginIn(argThat(logins -> logins.size() == 1 && logins.contains("manager")));
+    }
+
+    @Test
     void collectionQueriesAreRestrictedToCurrentUserAndActualTeam() {
         authenticate("manager", AuthoritiesConstants.USER);
         when(userExtraRepository.findByIdResponsableLogin("manager")).thenReturn(Arrays.asList(userExtraFor("member")));

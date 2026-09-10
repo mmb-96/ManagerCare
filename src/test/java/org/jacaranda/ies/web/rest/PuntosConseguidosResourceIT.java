@@ -2,7 +2,12 @@ package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.ManagerCareApp;
 import org.jacaranda.ies.domain.PuntosConseguidos;
+import org.jacaranda.ies.domain.User;
+import org.jacaranda.ies.domain.UserExtra;
 import org.jacaranda.ies.repository.PuntosConseguidosRepository;
+import org.jacaranda.ies.repository.UserExtraRepository;
+import org.jacaranda.ies.repository.UserRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.PuntosConseguidosService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -25,6 +32,7 @@ import static org.jacaranda.ies.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -33,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class PuntosConseguidosResourceIT {
 
     private static final Integer DEFAULT_PUNTOS = 1;
@@ -44,6 +52,12 @@ public class PuntosConseguidosResourceIT {
 
     @Autowired
     private PuntosConseguidosRepository puntosConseguidosRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserExtraRepository userExtraRepository;
 
     @Autowired
     private PuntosConseguidosService puntosConseguidosService;
@@ -165,6 +179,36 @@ public class PuntosConseguidosResourceIT {
 
     @Test
     @Transactional
+    public void authorizationRestrictsPuntosAndDeniesOrphansSafely() throws Exception {
+        User employee = saveUser("puntos-employee");
+        User manager = saveUser("puntos-manager");
+        User member = saveUser("puntos-member");
+        User outsider = saveUser("puntos-outsider");
+        userExtraRepository.saveAndFlush(new UserExtra().user(member).idResponsable(manager));
+        PuntosConseguidos own = puntosConseguidosRepository.saveAndFlush(createEntity(em).user(employee));
+        PuntosConseguidos teamMember = puntosConseguidosRepository.saveAndFlush(createEntity(em).user(member));
+        PuntosConseguidos orphan = puntosConseguidosRepository.saveAndFlush(createEntity(em));
+
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", own.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isOk());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", own.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", teamMember.getId()).with(regularUser(manager.getLogin())))
+            .andExpect(status().isOk());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", teamMember.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", orphan.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isForbidden());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos/{id}", orphan.getId()).with(administrator()))
+            .andExpect(status().isOk());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos-user/{login}", member.getLogin()).with(regularUser(manager.getLogin())))
+            .andExpect(status().isOk());
+        restPuntosConseguidosMockMvc.perform(get("/api/puntos-conseguidos-user/{login}", member.getLogin()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Transactional
     public void updatePuntosConseguidos() throws Exception {
         // Initialize the database
         puntosConseguidosService.save(puntosConseguidos);
@@ -226,5 +270,22 @@ public class PuntosConseguidosResourceIT {
         // Validate the database contains one less item
         List<PuntosConseguidos> puntosConseguidosList = puntosConseguidosRepository.findAll();
         assertThat(puntosConseguidosList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    private User saveUser(String login) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword("012345678901234567890123456789012345678901234567890123456789");
+        user.setActivated(true);
+        user.setEmail(login + "@example.test");
+        return userRepository.saveAndFlush(user);
+    }
+
+    private RequestPostProcessor regularUser(String login) {
+        return user(login).authorities(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    }
+
+    private RequestPostProcessor administrator() {
+        return user("puntos-admin").authorities(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
     }
 }

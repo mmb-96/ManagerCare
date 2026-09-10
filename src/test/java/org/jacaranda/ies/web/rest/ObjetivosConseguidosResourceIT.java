@@ -2,7 +2,12 @@ package org.jacaranda.ies.web.rest;
 
 import org.jacaranda.ies.ManagerCareApp;
 import org.jacaranda.ies.domain.ObjetivosConseguidos;
+import org.jacaranda.ies.domain.User;
+import org.jacaranda.ies.domain.UserExtra;
 import org.jacaranda.ies.repository.ObjetivosConseguidosRepository;
+import org.jacaranda.ies.repository.UserExtraRepository;
+import org.jacaranda.ies.repository.UserRepository;
+import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.service.ObjetivosConseguidosService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -25,6 +32,7 @@ import static org.jacaranda.ies.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -33,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ManagerCareApp.class)
 
 @AutoConfigureMockMvc
-@WithMockUser
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 public class ObjetivosConseguidosResourceIT {
 
     private static final Boolean DEFAULT_ESTADO = false;
@@ -47,6 +55,12 @@ public class ObjetivosConseguidosResourceIT {
 
     @Autowired
     private ObjetivosConseguidosRepository objetivosConseguidosRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserExtraRepository userExtraRepository;
 
     @Autowired
     private ObjetivosConseguidosService objetivosConseguidosService;
@@ -173,6 +187,36 @@ public class ObjetivosConseguidosResourceIT {
 
     @Test
     @Transactional
+    public void authorizationRestrictsObjetivosAndDeniesOrphansSafely() throws Exception {
+        User employee = saveUser("objetivos-employee");
+        User manager = saveUser("objetivos-manager");
+        User member = saveUser("objetivos-member");
+        User outsider = saveUser("objetivos-outsider");
+        userExtraRepository.saveAndFlush(new UserExtra().user(member).idResponsable(manager));
+        ObjetivosConseguidos own = objetivosConseguidosRepository.saveAndFlush(createEntity(em).user(employee));
+        ObjetivosConseguidos teamMember = objetivosConseguidosRepository.saveAndFlush(createEntity(em).user(member));
+        ObjetivosConseguidos orphan = objetivosConseguidosRepository.saveAndFlush(createEntity(em));
+
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", own.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isOk());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", own.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", teamMember.getId()).with(regularUser(manager.getLogin())))
+            .andExpect(status().isOk());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", teamMember.getId()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", orphan.getId()).with(regularUser(employee.getLogin())))
+            .andExpect(status().isForbidden());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-conseguidos/{id}", orphan.getId()).with(administrator()))
+            .andExpect(status().isOk());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-ST/{login}", member.getLogin()).with(regularUser(manager.getLogin())))
+            .andExpect(status().isOk());
+        restObjetivosConseguidosMockMvc.perform(get("/api/objetivos-ST/{login}", member.getLogin()).with(regularUser(outsider.getLogin())))
+            .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Transactional
     public void updateObjetivosConseguidos() throws Exception {
         // Initialize the database
         objetivosConseguidosService.save(objetivosConseguidos);
@@ -236,5 +280,22 @@ public class ObjetivosConseguidosResourceIT {
         // Validate the database contains one less item
         List<ObjetivosConseguidos> objetivosConseguidosList = objetivosConseguidosRepository.findAll();
         assertThat(objetivosConseguidosList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    private User saveUser(String login) {
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword("012345678901234567890123456789012345678901234567890123456789");
+        user.setActivated(true);
+        user.setEmail(login + "@example.test");
+        return userRepository.saveAndFlush(user);
+    }
+
+    private RequestPostProcessor regularUser(String login) {
+        return user(login).authorities(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    }
+
+    private RequestPostProcessor administrator() {
+        return user("objetivos-admin").authorities(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
     }
 }
