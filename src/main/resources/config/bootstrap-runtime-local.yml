@@ -1,0 +1,11 @@
+# ===================================================================
+# Bootstrap configuration for the isolated historical runtime profile.
+#
+# This profile is intended for a local PostgreSQL instance only. It must
+# never contact a JHipster Registry or a remote Spring Cloud Config server.
+# ===================================================================
+
+spring:
+  cloud:
+    config:
+      enabled: false
