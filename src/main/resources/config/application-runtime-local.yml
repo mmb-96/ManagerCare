@@ -1,0 +1,38 @@
+# ===================================================================
+# Configuration for an isolated historical runtime.
+#
+# Activate with: --spring.profiles.active=dev,runtime-local
+# Supply the PostgreSQL and JWT values through the environment. Do not add
+# credentials or JWT material to this file.
+# ===================================================================
+
+eureka:
+  client:
+    enabled: false
+
+ribbon:
+  eureka:
+    enabled: false
+
+spring:
+  datasource:
+    url: ${MANAGERCARE_RUNTIME_DB_URL}
+    username: ${MANAGERCARE_RUNTIME_DB_USERNAME}
+    password: ${MANAGERCARE_RUNTIME_DB_PASSWORD}
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    protocol: smtp
+    tls: false
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+managercare:
+  mail:
+    enabled: false
