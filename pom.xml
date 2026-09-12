@@ -426,6 +426,8 @@
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
+                        <!-- Keep method parameter names for Spring Security expressions such as #id and #login. -->
+                        <parameters>true</parameters>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.springframework.boot</groupId>
