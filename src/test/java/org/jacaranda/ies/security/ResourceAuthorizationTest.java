@@ -126,6 +126,15 @@ class ResourceAuthorizationTest {
 
         assertThat(authorization.canAccessPuntosConseguidos(42L)).isFalse();
         assertThat(authorization.canAccessUser(null)).isFalse();
+        assertThat(authorization.canAccessUser("")).isFalse();
+        assertThat(authorization.canAccessUser("   ")).isFalse();
+    }
+
+    @Test
+    void authorizationExpressionParameterNamesAreRetainedInBytecode() throws NoSuchMethodException {
+        assertThat(ResourceAuthorization.class.getDeclaredMethod("canAccessUser", String.class).getParameters()[0].isNamePresent()).isTrue();
+        assertThat(ResourceAuthorization.class.getDeclaredMethod("canAccessUser", String.class).getParameters()[0].getName()).isEqualTo("login");
+        assertThat(ResourceAuthorization.class.getDeclaredMethod("canAccessPuntosConseguidos", Long.class).getParameters()[0].getName()).isEqualTo("id");
     }
 
     @Test
