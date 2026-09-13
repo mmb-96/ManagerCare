@@ -5,24 +5,26 @@ import org.jacaranda.ies.security.jwt.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
     private final TokenProvider tokenProvider;
 
@@ -40,19 +42,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            .antMatchers("/app/**/*.{js,html}")
-            .antMatchers("/i18n/**")
-            .antMatchers("/content/**")
-            .antMatchers("/swagger-ui/index.html")
-            .antMatchers("/test/**");
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+            .requestMatchers(new AntPathRequestMatcher("/**", "OPTIONS"))
+            .requestMatchers(new AntPathRequestMatcher("/app/**/*.{js,html}"))
+            .requestMatchers(new AntPathRequestMatcher("/i18n/**"))
+            .requestMatchers(new AntPathRequestMatcher("/content/**"))
+            .requestMatchers(new AntPathRequestMatcher("/swagger-ui/index.html"))
+            .requestMatchers(new AntPathRequestMatcher("/test/**"));
     }
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http
             .csrf()
@@ -75,25 +82,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
-            .authorizeRequests()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .authorizeHttpRequests()
+            .requestMatchers(new AntPathRequestMatcher("/api/authenticate")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/register")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/activate")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/account/reset-password/init")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/account/reset-password/finish")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/**")).authenticated()
+            .requestMatchers(new AntPathRequestMatcher("/management/health")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/management/info")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/management/prometheus")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/management/**")).hasAuthority(AuthoritiesConstants.ADMIN)
         .and()
             .httpBasic()
         .and()
-            .apply(securityConfigurerAdapter());
+            .addFilterBefore(new JWTFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
         // @formatter:on
-    }
-
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
+        return http.build();
     }
 }
