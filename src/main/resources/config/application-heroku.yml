@@ -10,15 +10,6 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-  instance:
-    hostname: manager-care.herokuapp.com
-    non-secure-port: 80
-    prefer-ip-address: false
-  client:
-    service-url:
-      defaultZone: ${JHIPSTER_REGISTRY_URL}/eureka/
-
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource

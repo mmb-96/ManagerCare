@@ -49,7 +49,6 @@ public class SecurityConfiguration {
             .requestMatchers(new AntPathRequestMatcher("/app/**/*.{js,html}"))
             .requestMatchers(new AntPathRequestMatcher("/i18n/**"))
             .requestMatchers(new AntPathRequestMatcher("/content/**"))
-            .requestMatchers(new AntPathRequestMatcher("/swagger-ui/index.html"))
             .requestMatchers(new AntPathRequestMatcher("/test/**"));
     }
 

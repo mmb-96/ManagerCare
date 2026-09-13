@@ -1,7 +1,5 @@
 package org.jacaranda.ies.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -11,7 +9,6 @@ import java.util.Objects;
 /**
  * Entidad Tipo\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Tipo\n@author Manuel Melero.")
 @Entity
 @Table(name = "tipo")
 public class Tipo implements Serializable {
@@ -26,7 +23,6 @@ public class Tipo implements Serializable {
     /**
      * Atributo nombre.
      */
-    @ApiModelProperty(value = "Atributo nombre.")
     @Column(name = "nombre")
     private String nombre;
 

@@ -103,6 +103,7 @@ class SecurityConfigurationFilesTest {
         }
         return Arrays.stream(files.split("\u0000"))
             .filter(path -> path.endsWith(".yml") || path.endsWith(".yo-rc.json"))
-            .map(PROJECT_ROOT::resolve);
+            .map(PROJECT_ROOT::resolve)
+            .filter(Files::exists);
     }
 }

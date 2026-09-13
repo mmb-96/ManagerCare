@@ -1,7 +1,5 @@
 package org.jacaranda.ies.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -13,7 +11,6 @@ import java.util.Set;
 /**
  * Entidad Categoria\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Categoria\n@author Manuel Melero.")
 @Entity
 @Table(name = "categoria")
 public class Categoria implements Serializable {
@@ -28,21 +25,18 @@ public class Categoria implements Serializable {
     /**
      * Atributo nombre.
      */
-    @ApiModelProperty(value = "Atributo nombre.")
     @Column(name = "nombre")
     private String nombre;
 
     /**
      * Atributo descripcion.
      */
-    @ApiModelProperty(value = "Atributo descripcion.")
     @Column(name = "descripcion")
     private String descripcion;
 
     /**
      * Relacion entre categoria y objetivos.
      */
-    @ApiModelProperty(value = "Relacion entre categoria y objetivos.")
     @ManyToMany
     @JoinTable(name = "categoria_objetivo",
                joinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id"),

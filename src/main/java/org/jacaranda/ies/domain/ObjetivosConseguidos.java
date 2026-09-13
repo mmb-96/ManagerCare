@@ -1,8 +1,6 @@
 package org.jacaranda.ies.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -13,7 +11,6 @@ import java.time.ZonedDateTime;
 /**
  * Entidad Objetivos conseguidos\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Objetivos conseguidos\n@author Manuel Melero.")
 @Entity
 @Table(name = "objetivos_conseguidos")
 public class ObjetivosConseguidos implements Serializable {
@@ -28,28 +25,24 @@ public class ObjetivosConseguidos implements Serializable {
     /**
      * Atributo estado.
      */
-    @ApiModelProperty(value = "Atributo estado.")
     @Column(name = "estado")
     private Boolean estado;
 
     /**
      * Atributo anyos.
      */
-    @ApiModelProperty(value = "Atributo anyos.")
     @Column(name = "fecha_apertura")
     private ZonedDateTime fechaApertura;
 
     /**
      * Atributo fecha cierre.
      */
-    @ApiModelProperty(value = "Atributo fecha cierre.")
     @Column(name = "fecha_cierre")
     private ZonedDateTime fechaCierre;
 
     /**
      * Relacion entre objetivos conseguidos y usuarios.
      */
-    @ApiModelProperty(value = "Relacion entre objetivos conseguidos y usuarios.")
     @ManyToOne
     @JsonIgnoreProperties("objetivosConseguidos")
     private User user;
@@ -57,7 +50,6 @@ public class ObjetivosConseguidos implements Serializable {
     /**
      * Relacion entre objetivos conseguidos y usuarios.
      */
-    @ApiModelProperty(value = "Relacion entre objetivos conseguidos y usuarios.")
     @ManyToOne
     @JsonIgnoreProperties("objetivosConseguidos")
     private Objetivo objetivo;

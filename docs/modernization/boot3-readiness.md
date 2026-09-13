@@ -11,8 +11,8 @@ autoriza todavía Java 21, Jakarta, Hibernate 6 ni cambios de contrato.
 | Configuración web de seguridad | `WebSecurityConfigurerAdapter`, `antMatchers`, `authorizeRequests` | El adaptador y los matchers heredados desaparecen | Sustituido por `SecurityFilterChain`, `WebSecurityCustomizer` y `RequestMatcher` explícitos | Adoptar DSL lambda/`MvcRequestMatcher` cuando se actualice Security 6 |
 | Method security | `@EnableGlobalMethodSecurity`, `@PreAuthorize` | Renombrado a `@EnableMethodSecurity` | Se mantiene: las expresiones y `-parameters` están protegidos por test | Migrar la anotación junto con Jakarta/Security 6 |
 | JWT | Filtro propio y JJWT | Debe conservar la cadena y el token de Angular | `JWTConfigurer` eliminado; el mismo filtro se registra directamente | Evaluar JJWT y APIs de Security 6 sin cambiar claims |
-| Springfox | Dependencias transitivamente usadas por JHipster | No es compatible con Boot 3 | Se mantiene, aislado como tooling; el runtime no depende de Swagger | Sustituir por springdoc o retirar antes del salto |
-| Spring Cloud | Config, Eureka y Ribbon; runtime local los deshabilita | Ribbon y combinaciones JHipster/Cloud legacy no migran sin trabajo | Se mantiene por compatibilidad de perfiles históricos | Retirar Config/Eureka/Ribbon incrementalmente tras auditar prod |
+| Springfox | Dependencias documentales legacy | No es compatible con Boot 3 | Retirado de dependencias, perfiles y entidades | Evaluar springdoc solo si vuelve a ser necesario |
+| Spring Cloud | Config, Eureka y Ribbon legacy | No son necesarios sin consumidor de negocio | Retirado de dependencias, perfiles y Docker | Mantener ausencia de clientes Cloud al migrar |
 | JHipster 6 | Properties, headers, paginación, perfiles, Liquibase, cache, audit | BOM/framework usa APIs javax y Spring antiguas | Se mantiene para no variar headers/errores | Extraer utilidades pequeñas y sustituir framework por fases |
 | Zalando Problem | `problem-spring-web` 0.25.2 y `SecurityProblemSupport` | No es Jakarta/Boot 3 listo; además origina convergencia apiguardian | Se mantiene para conservar RFC7807 | Sustituir por ProblemDetail/handler compatible, con contrato explícito |
 | Jackson Afterburner | Dependencia y bean explícitos | Acceso modular fallido en Java 17 durante Gate C | Retirado; no aporta formato JSON | Ninguna acción salvo volver a medir rendimiento si fuera necesario |
@@ -31,10 +31,10 @@ La extracción posterior prioritaria es `HeaderUtil`/`ResponseUtil`/
 
 ## Configuración y Cloud
 
-`runtime-local` deshabilita Config Client, Eureka/Ribbon y correo efectivo;
+`runtime-local` no configura clientes Cloud y deshabilita correo efectivo;
 Gate C confirma que el monolito funciona sin servicios externos. Los perfiles
-dev/prod aún contienen configuraciones históricas de Registry/Eureka, por lo
-que sus dependencias son legacy eliminables pero no se retiran en esta etapa.
+dev/prod ya no contienen configuraciones de Registry/Eureka; los clientes
+Cloud y sus dependencias ya se retiraron en esta pre-etapa.
 
 Propiedades que deben revisarse exclusivamente al migrar a Boot 3: Cloud
 Config bootstrap/import, Eureka/Ribbon, Springfox, Hikari/JPA dialect,

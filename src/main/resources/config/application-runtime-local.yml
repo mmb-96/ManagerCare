@@ -6,18 +6,7 @@
 # credentials or JWT material to this file.
 # ===================================================================
 
-eureka:
-  client:
-    enabled: false
-
-ribbon:
-  eureka:
-    enabled: false
-
 spring:
-  cloud:
-    config:
-      enabled: false
   datasource:
     url: ${MANAGERCARE_RUNTIME_DB_URL}
     username: ${MANAGERCARE_RUNTIME_DB_USERNAME}

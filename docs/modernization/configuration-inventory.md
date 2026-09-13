@@ -1,6 +1,7 @@
 # Inventario de configuracion efectiva
 
-No se elimina ninguna propiedad en esta etapa.
+Inventario creado en la baseline y actualizado tras retirar los clientes Cloud
+y Springfox en la pre-Etapa 4.
 
 | Area | Prefijo | Estado actual | Futuro |
 |---|---|---|---|
@@ -11,11 +12,11 @@ No se elimina ninguna propiedad en esta etapa.
 | CORS | `jhipster.cors.*` | Opcional dev | Sustituible por propiedades Spring |
 | Actuator | `management.*` | Necesario para health/metrics | Mantener rutas/exposicion |
 | Logging | `logging.*`, `jhipster.logging.*` | Operacional | Sustituible |
-| Eureka/Registry/Config | `eureka.*`, `spring.cloud.*`, `jhipster.registry.*`, `bootstrap*.yml` | Legacy/opcional; runtime-local apagado | Candidata a retirada |
+| Eureka/Registry/Config | Retirado en la pre-Etapa 4 | No se carga en runtime local ni en los perfiles backend | Eliminado |
 | Cache HTTP | `jhipster.http.cache.*` | Opcional en assets prod | Candidata a retirada |
-| Swagger | `jhipster.swagger.*`, perfil `swagger` | Legacy | Sustituir Springfox despues |
+| Swagger | Retirado en la pre-Etapa 4 | Sin configuración ni dependencia backend | Eliminado |
 | Metricas | `management.metrics.*`, `jhipster.metrics.*` | Operacional opcional | Conservar Actuator |
 
-Perfiles baseline: `dev`, `prod`, `runtime-local`, `swagger`,
-`no-liquibase`, `tls`, `heroku`. `runtime-local` deshabilita Config,
-Eureka y mail real y exige variables locales sinteticas.
+Perfiles baseline: `dev`, `prod`, `runtime-local`, `no-liquibase`, `tls`,
+`heroku`. `runtime-local` no carga clientes Cloud,
+deshabilita mail real y exige variables locales sinteticas.

@@ -1,8 +1,6 @@
 package org.jacaranda.ies.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -13,7 +11,6 @@ import java.time.ZonedDateTime;
 /**
  * Entidad Puntos conseguidos\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Puntos conseguidos\n@author Manuel Melero.")
 @Entity
 @Table(name = "puntos_conseguidos", uniqueConstraints = {@UniqueConstraint(columnNames = {"anyos", "user_id"})})
 public class PuntosConseguidos implements Serializable {
@@ -28,21 +25,18 @@ public class PuntosConseguidos implements Serializable {
     /**
      * Atributo puntos.
      */
-    @ApiModelProperty(value = "Atributo puntos.")
     @Column(name = "puntos")
     private Integer puntos;
 
     /**
      * Atributo anyos.
      */
-    @ApiModelProperty(value = "Atributo anyos.")
     @Column(name = "anyos")
     private ZonedDateTime anyos;
 
     /**
      * Relacion entre puntos conseguidos y usuarios.
      */
-    @ApiModelProperty(value = "Relacion entre puntos conseguidos y usuarios.")
     @ManyToOne
     @JsonIgnoreProperties("puntosConseguidos")
     private User user;

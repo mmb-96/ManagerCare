@@ -13,17 +13,7 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-  client:
-    enabled: false
-  instance:
-    appname: ManagerCare
-    instanceId: ManagerCare:${spring.application.instance-id:${random.value}}
-
 spring:
-  cloud:
-    config:
-      enabled: false
   application:
     name: ManagerCare
   datasource:

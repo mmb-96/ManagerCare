@@ -1,8 +1,6 @@
 package org.jacaranda.ies.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -12,7 +10,6 @@ import java.util.Objects;
 /**
  * Entidad User Extra\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad User Extra\n@author Manuel Melero.")
 @Entity
 @Table(name = "user_extra")
 public class UserExtra implements Serializable {
@@ -27,7 +24,6 @@ public class UserExtra implements Serializable {
     /**
      * Relacion entre Usuario y Usuario Extra.
      */
-    @ApiModelProperty(value = "Relacion entre Usuario y Usuario Extra.")
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
@@ -35,7 +31,6 @@ public class UserExtra implements Serializable {
     /**
      * Relacion entre Usuario y Usuario Extra.
      */
-    @ApiModelProperty(value = "Relacion entre Usuario y Usuario Extra.")
     @ManyToOne
     @JsonIgnoreProperties("userExtras")
     private User idResponsable;
@@ -43,7 +38,6 @@ public class UserExtra implements Serializable {
     /**
      * Relacion entre usuario y categoria.
      */
-    @ApiModelProperty(value = "Relacion entre usuario y categoria.")
     @ManyToOne
     @JsonIgnoreProperties("userExtras")
     private Categoria categoria;

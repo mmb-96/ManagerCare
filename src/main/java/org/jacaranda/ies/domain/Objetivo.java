@@ -18,13 +18,10 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Entidad Objetivo\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Objetivo\n@author Manuel Melero.")
 @Entity
 @Table(name = "objetivo")
 public class Objetivo implements Serializable {
@@ -39,35 +36,30 @@ public class Objetivo implements Serializable {
     /**
      * Atributo nombre.
      */
-    @ApiModelProperty(value = "Atributo nombre.")
     @Column(name = "nombre")
     private String nombre;
 
     /**
      * Atributo descripcion.
      */
-    @ApiModelProperty(value = "Atributo descripcion.")
     @Column(name = "descripcion")
     private String descripcion;
 
     /**
      * Atributo url.
      */
-    @ApiModelProperty(value = "Atributo url.")
     @Column(name = "url")
     private String url;
 
     /**
      * Atributo puntos.
      */
-    @ApiModelProperty(value = "Atributo puntos.")
     @Column(name = "puntos")
     private Integer puntos;
 
     /**
      * Relacion entre objetivos y tipo.
      */
-    @ApiModelProperty(value = "Relacion entre objetivos y tipo.")
     @ManyToOne
     @JsonIgnoreProperties("objetivos")
     private Tipo tipo;

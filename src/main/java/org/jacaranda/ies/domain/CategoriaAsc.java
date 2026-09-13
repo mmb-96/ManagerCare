@@ -1,8 +1,6 @@
 package org.jacaranda.ies.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -12,7 +10,6 @@ import java.util.Objects;
 /**
  * Entidad Categoria Asc\n@author Manuel Melero.
  */
-@ApiModel(description = "Entidad Categoria Asc\n@author Manuel Melero.")
 @Entity
 @Table(name = "categoria_asc")
 public class CategoriaAsc implements Serializable {
@@ -27,7 +24,6 @@ public class CategoriaAsc implements Serializable {
     /**
      * Relacion entre categoria y Categoria Asc.
      */
-    @ApiModelProperty(value = "Relacion entre categoria y Categoria Asc.")
     @ManyToOne
     @JsonIgnoreProperties("categoriaAscs")
     private Categoria idHijo;
@@ -35,7 +31,6 @@ public class CategoriaAsc implements Serializable {
     /**
      * Relacion entre categoria y Categoria Asc.
      */
-    @ApiModelProperty(value = "Relacion entre categoria y Categoria Asc.")
     @ManyToOne
     @JsonIgnoreProperties("categoriaAscs")
     private Categoria idPadre;

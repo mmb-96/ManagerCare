@@ -13,7 +13,7 @@ does not contain credentials, JWT keys, or personal data.
 | Node.js                    | Yes for the frontend         | 12.16.1                                                   | Maven provisions this exact local runtime under `node/`; it is intentionally ignored by Git. |
 | npm                        | Yes for the frontend         | 6.14.2                                                    | Maven provisions it beside the local Node executable.                                        |
 | PostgreSQL                 | Yes for a functional backend | PostgreSQL 12.1 image is the historical compose reference | Use an isolated, disposable local database.                                                  |
-| JHipster Registry / Eureka | No                           | Disabled by `runtime-local`                               | Do not start it for local recovery.                                                          |
+| JHipster Registry / Eureka | No                           | Removed from the backend runtime                          | Do not start it for local recovery.                                                          |
 | SMTP                       | No                           | Disabled by `runtime-local`                               | No external delivery or Gmail is permitted.                                                  |
 | Grafana / Prometheus       | No                           | Not started                                               | Monitoring is outside this local runtime.                                                    |
 | Docker                     | Optional                     | Only a way to host PostgreSQL                             | It is not required if an equivalent isolated local PostgreSQL is available.                  |
@@ -66,9 +66,9 @@ no fallback for any of these values. Liquibase runs with the existing `dev, fake
    .\mvnw.cmd -P!webpack spring-boot:run "-Dspring-boot.run.arguments=--spring.profiles.active=dev,runtime-local"
    ```
 
-   `bootstrap-runtime-local.yml` disables Spring Cloud Config before the
-   application context starts; `application-runtime-local.yml` disables Eureka
-   and real mail.
+   Spring Cloud Config is not part of the backend runtime;
+   `application-runtime-local.yml` supplies the isolated database and disables
+   effective mail delivery.
 
 4. In another terminal, use the locally provisioned historical Node/npm runtime:
 
@@ -110,7 +110,7 @@ PostgreSQL.
 `src/main/docker/postgresql.yml` references PostgreSQL 12.1. If Docker is
 available and explicitly selected, run only that compose file with a
 non-versioned environment or an isolated override containing synthetic values.
-Do not run `app.yml`: it also starts the Registry and is not part of this
+Do not run `app.yml`: it is a production-oriented compose file and is not part of this
 minimal environment. The recovery procedure starts no container unless the
 local operator explicitly selects this PostgreSQL-only option.
 
