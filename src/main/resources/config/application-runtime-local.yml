@@ -15,6 +15,9 @@ ribbon:
     enabled: false
 
 spring:
+  cloud:
+    config:
+      enabled: false
   datasource:
     url: ${MANAGERCARE_RUNTIME_DB_URL}
     username: ${MANAGERCARE_RUNTIME_DB_USERNAME}

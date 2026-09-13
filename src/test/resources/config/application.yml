@@ -21,6 +21,9 @@ eureka:
     instanceId: ManagerCare:${spring.application.instance-id:${random.value}}
 
 spring:
+  cloud:
+    config:
+      enabled: false
   application:
     name: ManagerCare
   datasource:

@@ -10,7 +10,12 @@ public class ClientForwardController {
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
      */
-    @GetMapping(value = "/**/{path:[^\\.]*}")
+    @GetMapping(
+        value = {
+            "/{path:^(?!api$|management$|swagger$|v2$|webjars$|content$|i18n$|app$)[^.]+$}",
+            "/{path:^(?!api$|management$|swagger$|v2$|webjars$|content$|i18n$|app$)[^.]+$}/**"
+        }
+    )
     public String forward() {
         return "forward:/";
     }

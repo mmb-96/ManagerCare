@@ -52,6 +52,24 @@ public class ClientForwardControllerTest {
             .andExpect(forwardedUrl("/"));
     }
 
+    @Test
+    public void doesNotForwardApiEndpoint() throws Exception {
+        restMockMvc.perform(get("/api/unknown"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void doesNotForwardManagementEndpoint() throws Exception {
+        restMockMvc.perform(get("/management/unknown"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void doesNotForwardStaticAsset() throws Exception {
+        restMockMvc.perform(get("/content/images/logo.png"))
+            .andExpect(status().isNotFound());
+    }
+
 
     @RestController
     public static class TestController {
