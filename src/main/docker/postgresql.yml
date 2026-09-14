@@ -1,7 +1,7 @@
 version: '2'
 services:
   managercare-postgresql:
-    image: postgres:12.1
+    image: postgres:17.11
     # volumes:
     #     - ~/volumes/jhipster/ManagerCare/postgresql/:/var/lib/postgresql/data/
     environment:
