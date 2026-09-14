@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link org.jacaranda.ies.domain.Tipo}.
@@ -109,7 +108,7 @@ public class TipoResource {
     public ResponseEntity<Tipo> getTipo(@PathVariable Long id) {
         log.debug("REST request to get Tipo : {}", id);
         Optional<Tipo> tipo = tipoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(tipo);
+        return ResponseEntity.of(tipo);
     }
 
     /**

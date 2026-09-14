@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link org.jacaranda.ies.domain.CategoriaAsc}.
@@ -109,7 +108,7 @@ public class CategoriaAscResource {
     public ResponseEntity<CategoriaAsc> getCategoriaAsc(@PathVariable Long id) {
         log.debug("REST request to get CategoriaAsc : {}", id);
         Optional<CategoriaAsc> categoriaAsc = categoriaAscService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(categoriaAsc);
+        return ResponseEntity.of(categoriaAsc);
     }
 
     /**

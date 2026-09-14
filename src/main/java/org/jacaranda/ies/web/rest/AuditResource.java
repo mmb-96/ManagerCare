@@ -3,7 +3,6 @@ package org.jacaranda.ies.web.rest;
 import org.jacaranda.ies.service.AuditEventService;
 
 import tech.jhipster.web.util.PaginationUtil;
-import tech.jhipster.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,6 +73,6 @@ public class AuditResource {
      */
     @GetMapping("/{id:.+}")
     public ResponseEntity<AuditEvent> get(@PathVariable Long id) {
-        return ResponseUtil.wrapOrNotFound(auditEventService.find(id));
+        return ResponseEntity.of(auditEventService.find(id));
     }
 }

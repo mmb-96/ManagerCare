@@ -7,7 +7,6 @@ import org.jacaranda.ies.service.PuntosConseguidosService;
 import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
 
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -107,7 +106,7 @@ public class PuntosConseguidosResource {
     public ResponseEntity<PuntosConseguidos> getPuntosConseguidos(@PathVariable Long id) {
         log.debug("REST request to get PuntosConseguidos : {}", id);
         Optional<PuntosConseguidos> puntosConseguidos = puntosConseguidosService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(puntosConseguidos);
+        return ResponseEntity.of(puntosConseguidos);
     }
     
     /**

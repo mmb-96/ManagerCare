@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link org.jacaranda.ies.domain.Objetivo}.
@@ -109,7 +108,7 @@ public class ObjetivoResource {
     public ResponseEntity<Objetivo> getObjetivo(@PathVariable Long id) {
         log.debug("REST request to get Objetivo : {}", id);
         Optional<Objetivo> objetivo = objetivoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(objetivo);
+        return ResponseEntity.of(objetivo);
     }
 
     /**

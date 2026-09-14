@@ -7,7 +7,6 @@ import org.jacaranda.ies.service.ObjetivosConseguidosService;
 import org.jacaranda.ies.web.rest.errors.BadRequestAlertException;
 
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -107,7 +106,7 @@ public class ObjetivosConseguidosResource {
     public ResponseEntity<ObjetivosConseguidos> getObjetivosConseguidos(@PathVariable Long id) {
         log.debug("REST request to get ObjetivosConseguidos : {}", id);
         Optional<ObjetivosConseguidos> objetivosConseguidos = objetivosConseguidosService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(objetivosConseguidos);
+        return ResponseEntity.of(objetivosConseguidos);
     }
     
     /**

@@ -14,7 +14,6 @@ import org.jacaranda.ies.web.rest.errors.LoginAlreadyUsedException;
 
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,8 +134,9 @@ public class UserResource {
         }
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
 
-        return ResponseUtil.wrapOrNotFound(updatedUser,
-            HeaderUtil.createAlert(applicationName, "userManagement.updated", userDTO.getLogin()));
+        return updatedUser
+            .map(user -> ResponseEntity.ok().headers(HeaderUtil.createAlert(applicationName, "userManagement.updated", userDTO.getLogin())).body(user))
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     /**
@@ -188,9 +188,7 @@ public class UserResource {
     @PreAuthorize("@resourceAuthorization.canAccessUser(#login)")
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
-        return ResponseUtil.wrapOrNotFound(
-            userService.getUserWithAuthoritiesByLogin(login)
-                .map(UserDTO::new));
+        return ResponseEntity.of(userService.getUserWithAuthoritiesByLogin(login).map(UserDTO::new));
     }
 
     /**
