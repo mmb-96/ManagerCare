@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-import io.github.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.JHipsterProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 

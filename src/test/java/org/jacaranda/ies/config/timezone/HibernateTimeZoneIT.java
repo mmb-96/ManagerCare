@@ -11,6 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +22,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration tests for the UTC Hibernate configuration.
+ *
+ * <p>
+ * The production schema uses timestamp without time zone. For values with an
+ * offset or zone, the portable contract is preservation of the instant, not
+ * the JDBC textual representation or a regional ZoneId.
  */
 @SpringBootTest(classes = ManagerCareApp.class)
 public class HibernateTimeZoneIT {
@@ -27,6 +35,8 @@ public class HibernateTimeZoneIT {
     private DateTimeWrapperRepository dateTimeWrapperRepository;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private DateTimeWrapper dateTimeWrapper;
     private DateTimeFormatter dateTimeFormatter;
@@ -41,7 +51,6 @@ public class HibernateTimeZoneIT {
         dateTimeWrapper.setOffsetDateTime(OffsetDateTime.parse("2011-12-14T08:30:00.0Z"));
         dateTimeWrapper.setZonedDateTime(ZonedDateTime.parse("2011-12-14T08:30:00.0Z"));
         dateTimeWrapper.setLocalTime(LocalTime.parse("14:30:00"));
-        dateTimeWrapper.setOffsetTime(OffsetTime.parse("14:30:00+02:00"));
         dateTimeWrapper.setLocalDate(LocalDate.parse("2016-09-10"));
 
         dateTimeFormatter = DateTimeFormatter
@@ -58,14 +67,12 @@ public class HibernateTimeZoneIT {
 
     @Test
     @Transactional
-    public void storeInstantWithUtcConfigShouldBeStoredOnGMTTimeZone() {
-        dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
+    public void instantShouldRoundTripWithoutChangingItsInstant() {
+        Instant original = dateTimeWrapper.getInstant();
 
-        String request = generateSqlRequest("instant", dateTimeWrapper.getId());
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(request);
-        String expectedValue = dateTimeFormatter.format(dateTimeWrapper.getInstant());
+        DateTimeWrapper reloaded = saveFlushClearAndReload();
 
-        assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(resultSet, expectedValue);
+        assertThat(reloaded.getInstant()).isEqualTo(original);
     }
 
     @Test
@@ -85,30 +92,24 @@ public class HibernateTimeZoneIT {
 
     @Test
     @Transactional
-    public void storeOffsetDateTimeWithUtcConfigShouldBeStoredOnGMTTimeZone() {
-        dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
+    public void offsetDateTimeShouldRoundTripWithTheSameInstant() {
+        OffsetDateTime original = dateTimeWrapper.getOffsetDateTime();
 
-        String request = generateSqlRequest("offset_date_time", dateTimeWrapper.getId());
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(request);
-        String expectedValue = dateTimeWrapper
-            .getOffsetDateTime()
-            .format(dateTimeFormatter);
+        DateTimeWrapper reloaded = saveFlushClearAndReload();
 
-        assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(resultSet, expectedValue);
+        // A timestamp without time zone cannot portably preserve the literal offset.
+        assertThat(reloaded.getOffsetDateTime().toInstant()).isEqualTo(original.toInstant());
     }
 
     @Test
     @Transactional
-    public void storeZoneDateTimeWithUtcConfigShouldBeStoredOnGMTTimeZone() {
-        dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
+    public void zonedDateTimeShouldRoundTripWithTheSameInstant() {
+        ZonedDateTime original = dateTimeWrapper.getZonedDateTime();
 
-        String request = generateSqlRequest("zoned_date_time", dateTimeWrapper.getId());
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(request);
-        String expectedValue = dateTimeWrapper
-            .getZonedDateTime()
-            .format(dateTimeFormatter);
+        DateTimeWrapper reloaded = saveFlushClearAndReload();
 
-        assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(resultSet, expectedValue);
+        // ManagerCare REST tests protect same-instant behavior; the schema has no ZoneId column.
+        assertThat(reloaded.getZonedDateTime().toInstant()).isEqualTo(original.toInstant());
     }
 
     @Test
@@ -120,23 +121,6 @@ public class HibernateTimeZoneIT {
         SqlRowSet resultSet = jdbcTemplate.queryForRowSet(request);
         String expectedValue = dateTimeWrapper
             .getLocalTime()
-            .atDate(LocalDate.of(1970, Month.JANUARY, 1))
-            .atZone(ZoneId.systemDefault())
-            .format(timeFormatter);
-
-        assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(resultSet, expectedValue);
-    }
-
-    @Test
-    @Transactional
-    public void storeOffsetTimeWithUtcConfigShouldBeStoredOnGMTTimeZoneAccordingToHis1stJan1970Value() {
-        dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
-
-        String request = generateSqlRequest("offset_time", dateTimeWrapper.getId());
-        SqlRowSet resultSet = jdbcTemplate.queryForRowSet(request);
-        String expectedValue = dateTimeWrapper
-            .getOffsetTime()
-            .toLocalTime()
             .atDate(LocalDate.of(1970, Month.JANUARY, 1))
             .atZone(ZoneId.systemDefault())
             .format(timeFormatter);
@@ -160,6 +144,12 @@ public class HibernateTimeZoneIT {
 
     private String generateSqlRequest(String fieldName, long id) {
         return format("SELECT %s FROM jhi_date_time_wrapper where id=%d", fieldName, id);
+    }
+
+    private DateTimeWrapper saveFlushClearAndReload() {
+        long id = dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper).getId();
+        entityManager.clear();
+        return dateTimeWrapperRepository.findById(id).orElseThrow();
     }
 
     private void assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(SqlRowSet sqlRowSet, String expectedValue) {

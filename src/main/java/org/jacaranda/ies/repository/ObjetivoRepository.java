@@ -19,7 +19,7 @@ public interface ObjetivoRepository extends JpaRepository<Objetivo, Long> {
 	 * Metodo que obtiene los objetivos de la categoria de un usuario.
 	 * 
 	 */
-    @Query("select o from Objetivo o join fetch o.categorias cat where cat.id = (Select eu.categoria from UserExtra eu where eu.user.login = ?#{principal.username})")
+    @Query("select o from Objetivo o join fetch o.categorias cat where cat.id = (select eu.categoria.id from UserExtra eu where eu.user.login = ?#{principal.username})")
     List<Objetivo> findObjetivoUser();
     
 	/**

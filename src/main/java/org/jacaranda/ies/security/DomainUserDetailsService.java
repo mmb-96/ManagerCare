@@ -2,7 +2,6 @@ package org.jacaranda.ies.security;
 
 import org.jacaranda.ies.domain.User;
 import org.jacaranda.ies.repository.UserRepository;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -21,6 +21,14 @@ import java.util.stream.Collectors;
  */
 @Component("userDetailsService")
 public class DomainUserDetailsService implements UserDetailsService {
+
+    /**
+     * Preserves the historical ManagerCare login semantics: local accounts may
+     * use host-only addresses such as {@code user@localhost}.  The former
+     * Hibernate Validator implementation accepted these identifiers, whereas
+     * requiring a dot in the domain changes their lookup from email to login.
+     */
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+$");
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
 
@@ -35,7 +43,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
 
-        if (new EmailValidator().isValid(login, null)) {
+        if (EMAIL_PATTERN.matcher(login).matches()) {
             return userRepository.findOneWithAuthoritiesByEmailIgnoreCase(login)
                 .map(user -> createSpringSecurityUser(login, user))
                 .orElseThrow(() -> new UsernameNotFoundException("User with email " + login + " was not found in the database"));

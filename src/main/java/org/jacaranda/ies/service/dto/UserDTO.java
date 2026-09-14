@@ -5,7 +5,7 @@ import org.jacaranda.ies.config.Constants;
 import org.jacaranda.ies.domain.Authority;
 import org.jacaranda.ies.domain.User;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;

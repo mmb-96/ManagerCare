@@ -6,7 +6,7 @@
 
     <logger name="org.jacaranda.ies" level="INFO"/>
 
-    <logger name="io.github.jhipster" level="WARN"/>
+    <logger name="tech.jhipster" level="WARN"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
@@ -35,8 +35,7 @@
     <logger name="LiquibaseSchemaResolver" level="INFO"/>
     <logger name="sun.rmi.transport" level="WARN"/>
 
-    <root>
-        <level>WARN</level>
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>
 

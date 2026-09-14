@@ -1,6 +1,6 @@
 package org.jacaranda.ies.service;
 
-import io.github.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.JHipsterProperties;
 import org.jacaranda.ies.config.audit.AuditEventConverter;
 import org.jacaranda.ies.repository.PersistenceAuditEventRepository;
 import org.slf4j.Logger;

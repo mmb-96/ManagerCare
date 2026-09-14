@@ -9,9 +9,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,8 +87,25 @@ public class ExceptionTranslatorIT {
         mockMvc.perform(post("/api/exception-translator-test/access-denied"))
             .andExpect(status().isMethodNotAllowed())
             .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+            .andExpect(header().string("Allow", "GET"))
+            .andExpect(jsonPath("$.type").value("https://www.jhipster.tech/problem/problem-with-message"))
+            .andExpect(jsonPath("$.title").value("Method Not Allowed"))
+            .andExpect(jsonPath("$.path").value("/api/exception-translator-test/access-denied"))
             .andExpect(jsonPath("$.message").value("error.http.405"))
-            .andExpect(jsonPath("$.detail").value("Request method 'POST' not supported"));
+            .andExpect(jsonPath("$.detail").value(containsString("POST")))
+            .andExpect(jsonPath("$.detail").value(containsString("not supported")));
+    }
+
+    @Test
+    public void testMissingApiRouteIsNotFound() throws Exception {
+        mockMvc.perform(get("/api/__managercare_missing_route__"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+            .andExpect(jsonPath("$.status").value(404))
+            .andExpect(jsonPath("$.title").value("Not Found"))
+            .andExpect(jsonPath("$.path").value("/api/__managercare_missing_route__"))
+            .andExpect(jsonPath("$.message").value("error.http.404"))
+            .andExpect(jsonPath("$.detail").value(containsString("api/__managercare_missing_route__")));
     }
 
     @Test

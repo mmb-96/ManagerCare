@@ -3,7 +3,7 @@ package org.jacaranda.ies.service;
 import org.jacaranda.ies.domain.PersistentAuditEvent;
 import org.jacaranda.ies.repository.PersistenceAuditEventRepository;
 import org.jacaranda.ies.ManagerCareApp;
-import io.github.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.JHipsterProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

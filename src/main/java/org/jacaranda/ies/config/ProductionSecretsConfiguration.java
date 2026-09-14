@@ -1,8 +1,8 @@
 package org.jacaranda.ies.config;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
-import io.github.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.JHipsterProperties;
 import io.jsonwebtoken.io.Decoders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.mail.MailProperties;

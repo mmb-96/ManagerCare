@@ -31,6 +31,8 @@ public class DomainUserDetailsServiceIT {
     private static final String USER_TWO_EMAIL = "test-user-two@localhost";
     private static final String USER_THREE_LOGIN = "test-user-three";
     private static final String USER_THREE_EMAIL = "test-user-three@localhost";
+    private static final String USER_FOUR_LOGIN = "test-user-four";
+    private static final String USER_FOUR_EMAIL = "user@example.com";
 
     @Autowired
     private UserRepository userRepository;
@@ -41,6 +43,7 @@ public class DomainUserDetailsServiceIT {
     private User userOne;
     private User userTwo;
     private User userThree;
+    private User userFour;
 
     @BeforeEach
     public void init() {
@@ -73,6 +76,16 @@ public class DomainUserDetailsServiceIT {
         userThree.setLastName("doe");
         userThree.setLangKey("en");
         userRepository.save(userThree);
+
+        userFour = new User();
+        userFour.setLogin(USER_FOUR_LOGIN);
+        userFour.setPassword(RandomStringUtils.random(60));
+        userFour.setActivated(true);
+        userFour.setEmail(USER_FOUR_EMAIL);
+        userFour.setFirstName("userFour");
+        userFour.setLastName("doe");
+        userFour.setLangKey("en");
+        userRepository.save(userFour);
     }
 
     @Test
@@ -113,6 +126,14 @@ public class DomainUserDetailsServiceIT {
         UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_ONE_EMAIL);
         assertThat(userDetails).isNotNull();
         assertThat(userDetails.getUsername()).isEqualTo(USER_ONE_LOGIN);
+    }
+
+    @Test
+    @Transactional
+    public void assertThatUserCanBeFoundByConventionalEmail() {
+        UserDetails userDetails = domainUserDetailsService.loadUserByUsername(USER_FOUR_EMAIL);
+        assertThat(userDetails).isNotNull();
+        assertThat(userDetails.getUsername()).isEqualTo(USER_FOUR_LOGIN);
     }
 
     @Test

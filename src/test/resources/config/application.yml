@@ -28,16 +28,11 @@ spring:
     serialization:
       write-durations-as-timestamps: false
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedH2Dialect
     open-in-view: false
     show-sql: false
     hibernate:
       ddl-auto: none
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     properties:
-      hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
@@ -58,9 +53,6 @@ spring:
     allow-bean-definition-overriding: true
   messages:
     basename: i18n/messages
-  mvc:
-    favicon:
-      enabled: false
   task:
     execution:
       thread-name-prefix: manager-care-task-
@@ -95,7 +87,6 @@ jhipster:
       enabled: false
       host: localhost
       port: 5000
-      queue-size: 512
   mail:
     from: test@localhost
     base-url: http://127.0.0.1:8080
@@ -106,11 +97,6 @@ jhipster:
         base64-secret: TUMwMV9NQzAyX1RFU1RfT05MWV9KV1RfU0lHTklOR19LRVlfTk9UX0ZPUl9ERVZfT1JfUFJPRFVDVElPTl8wMTIzNDU2Nzg5
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
-  metrics:
-    logs: # Reports metrics in the logs
-      enabled: true
-      report-frequency: 60 # in seconds
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

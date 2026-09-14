@@ -1,7 +1,7 @@
 package org.jacaranda.ies.security.jwt;
 
 import org.jacaranda.ies.security.AuthoritiesConstants;
-import io.github.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.JHipsterProperties;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 

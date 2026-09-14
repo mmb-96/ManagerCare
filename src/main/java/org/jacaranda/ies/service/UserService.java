@@ -9,7 +9,7 @@ import org.jacaranda.ies.security.AuthoritiesConstants;
 import org.jacaranda.ies.security.SecurityUtils;
 import org.jacaranda.ies.service.dto.UserDTO;
 
-import io.github.jhipster.security.RandomUtil;
+import tech.jhipster.security.RandomUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
