@@ -21,11 +21,11 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Verify Maven Wrapper
-        run: ./mvnw -version
-
       - name: Enable Maven Wrapper
         run: chmod +x mvnw
+
+      - name: Verify Maven Wrapper
+        run: ./mvnw -version
 
       - name: Gate A
         run: ./mvnw --batch-mode -P!webpack test
