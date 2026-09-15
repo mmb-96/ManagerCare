@@ -32,8 +32,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/ManagerCare
-    username: postgres
-    password: 621996
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
     hikari:
       poolName: Hikari
       auto-commit: false

@@ -47,19 +47,19 @@ public class UserService {
     }
 
     public Optional<User> activateRegistration(String key) {
-        log.debug("Activating user for activation key {}", key);
+        log.debug("Activating user");
         return userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
-                log.debug("Activated user: {}", user);
+                log.debug("Activated user");
                 return user;
             });
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-        log.debug("Reset user password for reset key {}", key);
+        log.debug("Completing password reset");
         return userRepository.findOneByResetKey(key)
             .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
             .map(user -> {
@@ -113,7 +113,7 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        log.debug("Created user");
         return newUser;
     }
 
@@ -154,7 +154,7 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
-        log.debug("Created Information for User: {}", user);
+        log.debug("Created user");
         return user;
     }
 
@@ -178,7 +178,7 @@ public class UserService {
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
-                log.debug("Changed Information for User: {}", user);
+                log.debug("Updated user information");
             });
     }
 
@@ -210,7 +210,7 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
-                log.debug("Changed Information for User: {}", user);
+                log.debug("Updated user information");
                 return user;
             })
             .map(UserDTO::new);
@@ -219,7 +219,7 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
-            log.debug("Deleted User: {}", user);
+            log.debug("Deleted user");
         });
     }
 
@@ -233,7 +233,7 @@ public class UserService {
                 }
                 String encryptedPassword = passwordEncoder.encode(newPassword);
                 user.setPassword(encryptedPassword);
-                log.debug("Changed password for User: {}", user);
+                log.debug("Changed password");
             });
     }
 
@@ -278,7 +278,7 @@ public class UserService {
         userRepository
             .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
             .forEach(user -> {
-                log.debug("Deleting not activated user {}", user.getLogin());
+                log.debug("Deleting inactive user");
                 userRepository.delete(user);
             });
     }

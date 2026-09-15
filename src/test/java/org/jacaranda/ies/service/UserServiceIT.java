@@ -18,6 +18,7 @@ import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -89,6 +90,32 @@ public class UserServiceIT {
         assertThat(maybeUser.orElse(null).getEmail()).isEqualTo(user.getEmail());
         assertThat(maybeUser.orElse(null).getResetDate()).isNotNull();
         assertThat(maybeUser.orElse(null).getResetKey()).isNotNull();
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void assertThatPasswordResetRequestIsPersisted() {
+        User resetUser = new User();
+        resetUser.setLogin("password-reset-persistence-test");
+        resetUser.setPassword(RandomStringUtils.random(60));
+        resetUser.setActivated(true);
+        resetUser.setEmail("password-reset-persistence-test@example.com");
+        resetUser.setFirstName(DEFAULT_FIRSTNAME);
+        resetUser.setLastName(DEFAULT_LASTNAME);
+        resetUser.setLangKey(DEFAULT_LANGKEY);
+        userRepository.saveAndFlush(resetUser);
+
+        try {
+            Optional<User> maybeUser = userService.requestPasswordReset(resetUser.getEmail());
+
+            assertThat(maybeUser).isPresent();
+            User reloadedUser = userRepository.findOneByEmailIgnoreCase(resetUser.getEmail()).orElseThrow();
+            assertThat(reloadedUser.getResetKey()).isNotNull();
+            assertThat(reloadedUser.getResetDate()).isNotNull();
+        } finally {
+            userRepository.findOneByLogin(resetUser.getLogin()).ifPresent(userRepository::delete);
+            userRepository.flush();
+        }
     }
 
     @Test

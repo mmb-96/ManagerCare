@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
-import java.util.Arrays;
-
 /**
  * Aspect for logging execution of service and repository Spring components.
  *
@@ -70,18 +68,16 @@ public class LoggingAspect {
         if (env.acceptsProfiles(Profiles.of(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT))) {
             logger(joinPoint)
                 .error(
-                    "Exception in {}() with cause = \'{}\' and exception = \'{}\'",
+                    "Exception in {}() [type={}]",
                     joinPoint.getSignature().getName(),
-                    e.getCause() != null ? e.getCause() : "NULL",
-                    e.getMessage(),
-                    e
+                    e.getClass().getSimpleName()
                 );
         } else {
             logger(joinPoint)
                 .error(
-                    "Exception in {}() with cause = {}",
+                    "Exception in {}() [type={}]",
                     joinPoint.getSignature().getName(),
-                    e.getCause() != null ? e.getCause() : "NULL"
+                    e.getClass().getSimpleName()
                 );
         }
     }
@@ -97,16 +93,16 @@ public class LoggingAspect {
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger log = logger(joinPoint);
         if (log.isDebugEnabled()) {
-            log.debug("Enter: {}() with argument[s] = {}", joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
+            log.debug("Enter: {}()", joinPoint.getSignature().getName());
         }
         try {
             Object result = joinPoint.proceed();
             if (log.isDebugEnabled()) {
-                log.debug("Exit: {}() with result = {}", joinPoint.getSignature().getName(), result);
+                log.debug("Exit: {}()", joinPoint.getSignature().getName());
             }
             return result;
         } catch (IllegalArgumentException e) {
-            log.error("Illegal argument: {} in {}()", Arrays.toString(joinPoint.getArgs()), joinPoint.getSignature().getName());
+            log.error("Illegal argument in {}() [type={}]", joinPoint.getSignature().getName(), e.getClass().getSimpleName());
             throw e;
         }
     }

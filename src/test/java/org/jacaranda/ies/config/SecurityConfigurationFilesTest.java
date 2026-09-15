@@ -48,6 +48,21 @@ class SecurityConfigurationFilesTest {
     }
 
     @Test
+    void developmentDatasourceCredentialsUseEnvironmentVariables() throws IOException {
+        String developmentConfiguration = projectFile("src/main/resources/config/application-dev.yml");
+
+        assertThat(developmentConfiguration).contains("username: ${SPRING_DATASOURCE_USERNAME:postgres}");
+        assertThat(developmentConfiguration).contains("password: ${SPRING_DATASOURCE_PASSWORD:}");
+    }
+
+    @Test
+    void tlsKeystorePasswordUsesEnvironmentVariable() throws IOException {
+        String tlsConfiguration = projectFile("src/main/resources/config/application-tls.yml");
+
+        assertThat(tlsConfiguration).contains("key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD}");
+    }
+
+    @Test
     void missingProductionJwtProducesControlledError() {
         assertThatIllegalStateException().isThrownBy(() ->
             ProductionSecretsConfiguration.validate(new JHipsterProperties(), new MailProperties(), false))
