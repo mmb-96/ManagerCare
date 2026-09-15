@@ -32,9 +32,14 @@ El workflow aplica `contents: read` y no usa secretos reales. Gate A y Gate B no
 
 OWASP Dependency-Check no se añade: Dependabot no informa alertas Maven y añadirlo ahora aumentaría tiempo y ruido. CodeQL queda como candidato para una etapa posterior, una vez estabilizada la CI base.
 
+## Primera ejecución en GitHub
+
+La primera ejecución real se completó correctamente en Linux mediante el pull request #12 (run `34994871230`). Confirmó Temurin 21, Maven Wrapper, caché Maven y la coexistencia portable de JaCoCo con el agente Mockito. Gate A completó 66 tests y Gate B completó 20 clases IT / 165 tests, sin failures, errors ni skipped.
+
+CycloneDX generó y validó un SBOM JSON 1.6 con 141 componentes. El artefacto temporal `managercare-backend-sbom` se cargó correctamente con retención de 14 días.
+
 ## Pendientes
 
-- Primera ejecución real del workflow en GitHub tras publicar una rama o pull request.
 - CodeQL.
 - Maven Wrapper 3.9.x.
 - Modernización coordinada de Angular/npm.
