@@ -1,0 +1,42 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Enable Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Gate A
+        run: ./mvnw --batch-mode -P!webpack test
+
+      - name: Gate B
+        run: ./mvnw --batch-mode -P!webpack verify
+
+      - name: Generate backend SBOM
+        run: ./mvnw --batch-mode cyclonedx:makeAggregateBom
+
+      - name: Upload backend SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: managercare-backend-sbom
+          path: target/managercare-backend-sbom.json
+          if-no-files-found: error
+          retention-days: 14
