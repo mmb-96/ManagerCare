@@ -1,7 +1,6 @@
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
+const { merge: webpackMerge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -78,7 +77,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         minimizer: [
             new TerserPlugin({
                 parallel: true,
-                cache: true,
                 // sourceMap: true, // Enable source maps. Please note that this will slow down the build
                 terserOptions: {
                     ecma: 6,
@@ -113,7 +111,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                     }
                 }
             }),
-            new OptimizeCSSAssetsPlugin({})
+            new CssMinimizerPlugin()
         ]
     },
     plugins: [
@@ -134,10 +132,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             openAnalyzer: false,
             // Webpack statistics in target folder
             reportFilename: '../stats.html'
-        }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
         }),
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,

@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const writeFilePlugin = require('write-file-webpack-plugin');
-const webpackMerge = require('webpack-merge');
+const { merge: webpackMerge } = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
@@ -16,7 +16,9 @@ const ENV = 'development';
 module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'eval-source-map',
     devServer: {
-        contentBase: './target/classes/static/',
+        static: {
+            directory: utils.root('target/classes/static/')
+        },
         proxy: [{
             context: [
                 '/api',
@@ -31,9 +33,8 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
             secure: false,
             changeOrigin: options.tls
         }],
-        stats: options.stats,
-        watchOptions: {
-            ignored: /node_modules/
+        devMiddleware: {
+            stats: options.stats
         },
         https: options.tls,
         historyApiFallback: true
@@ -108,9 +109,9 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
             path.resolve(__dirname, './src/main/webapp/')
         ),
         new writeFilePlugin(),
-        new webpack.WatchIgnorePlugin([
-            utils.root('src/test'),
-        ]),
+        new webpack.WatchIgnorePlugin({
+            paths: [utils.root('src/test')]
+        }),
         new WebpackNotifierPlugin({
             title: 'JHipster',
             contentImage: path.join(__dirname, 'logo-jhipster.png')
