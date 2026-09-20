@@ -74,7 +74,7 @@
     "jest": "27.5.1",
     "jest-date-mock": "1.0.7",
     "jest-junit": "10.0.0",
-    "jest-preset-angular": "11.1.2",
+    "jest-preset-angular": "17.0.0",
     "jest-sonar-reporter": "2.0.0",
     "lint-staged": "8.2.1",
     "merge-jsons-webpack-plugin": "1.0.20",
