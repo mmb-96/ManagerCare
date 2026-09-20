@@ -52,7 +52,7 @@
     "autoprefixer": "9.7.3",
     "babel-loader": "8.2.5",
     "base-href-webpack-plugin": "3.0.1",
-    "browser-sync": "2.26.7",
+    "browser-sync": "2.29.3",
     "browser-sync-webpack-plugin": "2.4.0",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
