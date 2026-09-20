@@ -11,6 +11,5 @@ import { categoriaAscRoute } from './categoria-asc.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild(categoriaAscRoute)],
   declarations: [CategoriaAscComponent, CategoriaAscDetailComponent, CategoriaAscUpdateComponent, CategoriaAscDeleteDialogComponent],
-  entryComponents: [CategoriaAscDeleteDialogComponent]
 })
 export class ManagerCareCategoriaAscModule {}

@@ -11,6 +11,5 @@ import { userExtraRoute } from './user-extra.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild(userExtraRoute)],
   declarations: [UserExtraComponent, UserExtraDetailComponent, UserExtraUpdateComponent, UserExtraDeleteDialogComponent],
-  entryComponents: [UserExtraDeleteDialogComponent]
 })
 export class ManagerCareUserExtraModule {}

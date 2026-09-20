@@ -10,6 +10,5 @@ import { healthRoute } from './health.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild([healthRoute])],
   declarations: [HealthComponent, HealthModalComponent],
-  entryComponents: [HealthModalComponent]
 })
 export class HealthModule {}

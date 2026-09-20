@@ -11,6 +11,5 @@ import { objetivoRoute } from './objetivo.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild(objetivoRoute)],
   declarations: [ObjetivoComponent, ObjetivoDetailComponent, ObjetivoUpdateComponent, ObjetivoDeleteDialogComponent],
-  entryComponents: [ObjetivoDeleteDialogComponent]
 })
 export class ManagerCareObjetivoModule {}

@@ -9,7 +9,7 @@ const utils = require('./utils.js');
 
 module.exports = (options) => ({
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.js', '.mjs'],
         modules: ['node_modules'],
         mainFields: [ 'es2015', 'browser', 'module', 'main'],
         alias: utils.mapTypescriptAliasToWebpackAlias()
@@ -19,6 +19,22 @@ module.exports = (options) => ({
     },
     module: {
         rules: [
+            {
+                test: /\.m?js$/,
+                include: [
+                    /node_modules[\\/]@angular[\\/]/,
+                    /node_modules[\\/]@ng-bootstrap[\\/]/
+                ],
+                resolve: {
+                    fullySpecified: false
+                },
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: [require.resolve('@angular/compiler-cli/linker/babel')]
+                    }
+                }
+            },
             {
                 test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
                 loader: '@ngtools/webpack'

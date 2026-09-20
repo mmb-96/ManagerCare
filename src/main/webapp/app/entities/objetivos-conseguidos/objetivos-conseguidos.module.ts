@@ -16,6 +16,5 @@ import { objetivosConseguidosRoute } from './objetivos-conseguidos.route';
     ObjetivosConseguidosUpdateComponent,
     ObjetivosConseguidosDeleteDialogComponent
   ],
-  entryComponents: [ObjetivosConseguidosDeleteDialogComponent]
 })
 export class ManagerCareObjetivosConseguidosModule {}

@@ -9,7 +9,6 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 @NgModule({
   imports: [ManagerCareSharedLibsModule],
   declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, LoginModalComponent, HasAnyAuthorityDirective],
-  entryComponents: [LoginModalComponent],
   exports: [
     ManagerCareSharedLibsModule,
     FindLanguageFromKeyPipe,

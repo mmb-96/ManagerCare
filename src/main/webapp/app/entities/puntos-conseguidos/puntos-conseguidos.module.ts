@@ -16,6 +16,5 @@ import { puntosConseguidosRoute } from './puntos-conseguidos.route';
     PuntosConseguidosUpdateComponent,
     PuntosConseguidosDeleteDialogComponent
   ],
-  entryComponents: [PuntosConseguidosDeleteDialogComponent]
 })
 export class ManagerCarePuntosConseguidosModule {}

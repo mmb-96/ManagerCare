@@ -11,6 +11,5 @@ import { categoriaRoute } from './categoria.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild(categoriaRoute)],
   declarations: [CategoriaComponent, CategoriaDetailComponent, CategoriaUpdateComponent, CategoriaDeleteDialogComponent],
-  entryComponents: [CategoriaDeleteDialogComponent]
 })
 export class ManagerCareCategoriaModule {}

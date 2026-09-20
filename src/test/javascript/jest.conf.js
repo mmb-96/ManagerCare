@@ -2,6 +2,7 @@ const tsconfig = require('../../../tsconfig.json');
 
 module.exports = {
     preset: 'jest-preset-angular',
+    globalSetup: 'jest-preset-angular/global-setup',
     setupFiles: ['jest-date-mock'],
     setupFilesAfterEnv: ['<rootDir>/src/test/javascript/jest.ts'],
     cacheDirectory: '<rootDir>/target/jest-cache',
@@ -9,8 +10,7 @@ module.exports = {
     globals: {
         'ts-jest': {
             stringifyContentPathRegex: '\\.html$',
-            tsConfig: '<rootDir>/tsconfig.json',
-            astTransformers: ['jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']
+            tsconfig: '<rootDir>/tsconfig.json'
         }
     },
     coveragePathIgnorePatterns: [
@@ -22,7 +22,10 @@ module.exports = {
         [ 'jest-junit', { outputDirectory: './target/test-results/', outputName: 'TESTS-results-jest.xml' } ]
     ],
     testResultsProcessor: 'jest-sonar-reporter',
-    transformIgnorePatterns: ['node_modules/'],
+    testEnvironment: 'jsdom',
+    testRunner: 'jest-jasmine2',
+    moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
     testMatch: ['<rootDir>/src/test/javascript/spec/**/@(*.)@(spec.ts)'],
     rootDir: '../../../',
     testURL: 'http://localhost/'

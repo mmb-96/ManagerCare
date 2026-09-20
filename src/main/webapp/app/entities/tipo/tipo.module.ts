@@ -11,6 +11,5 @@ import { tipoRoute } from './tipo.route';
 @NgModule({
   imports: [ManagerCareSharedModule, RouterModule.forChild(tipoRoute)],
   declarations: [TipoComponent, TipoDetailComponent, TipoUpdateComponent, TipoDeleteDialogComponent],
-  entryComponents: [TipoDeleteDialogComponent]
 })
 export class ManagerCareTipoModule {}
