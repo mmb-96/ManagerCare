@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { throwError, of } from 'rxjs';
 
 import { ManagerCareTestModule } from '../../../test.module';
@@ -28,7 +28,7 @@ describe('Component Tests', () => {
       TestBed.configureTestingModule({
         imports: [ManagerCareTestModule],
         declarations: [SettingsComponent],
-        providers: [FormBuilder]
+        providers: [UntypedFormBuilder]
       })
         .overrideTemplate(SettingsComponent, '')
         .compileComponents();

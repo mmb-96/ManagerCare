@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,7 +23,7 @@ describe('Component Tests', () => {
         imports: [ManagerCareTestModule],
         declarations: [LoginModalComponent],
         providers: [
-          FormBuilder,
+          UntypedFormBuilder,
           {
             provide: LoginService,
             useClass: MockLoginService

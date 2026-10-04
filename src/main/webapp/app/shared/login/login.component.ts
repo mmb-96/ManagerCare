@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,12 @@ export class LoginModalComponent implements AfterViewInit {
     rememberMe: [false]
   });
 
-  constructor(private loginService: LoginService, private router: Router, public activeModal: NgbActiveModal, private fb: FormBuilder) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    public activeModal: NgbActiveModal,
+    private fb: UntypedFormBuilder
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.username) {

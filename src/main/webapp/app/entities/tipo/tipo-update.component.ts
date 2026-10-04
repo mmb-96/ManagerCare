@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class TipoUpdateComponent implements OnInit {
     nombre: []
   });
 
-  constructor(protected tipoService: TipoService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(protected tipoService: TipoService, protected activatedRoute: ActivatedRoute, private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ tipo }) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -35,7 +35,7 @@ export class UserExtraUpdateComponent implements OnInit {
     protected userService: UserService,
     protected categoriaService: CategoriaService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {
