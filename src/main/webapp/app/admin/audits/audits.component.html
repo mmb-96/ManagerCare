@@ -8,14 +8,10 @@
             <h4 jhiTranslate="audits.filter.title">Filter by date</h4>
 
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" jhiTranslate="audits.filter.from">from</span>
-                </div>
+                <span class="input-group-text" jhiTranslate="audits.filter.from">from</span>
                 <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" (ngModelChange)="transition()" required/>
 
-                <div class="input-group-append">
-                    <span class="input-group-text" jhiTranslate="audits.filter.to">To</span>
-                </div>
+                <span class="input-group-text" jhiTranslate="audits.filter.to">To</span>
                 <input type="date" class="form-control" name="end" [(ngModel)]="toDate" (ngModelChange)="transition()" required/>
             </div>
         </div>

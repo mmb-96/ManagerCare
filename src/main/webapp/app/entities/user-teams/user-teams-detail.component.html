@@ -29,7 +29,7 @@
     <h3 id="page-heading">
         <span jhiTranslate="managerCareApp.objetivosConseguidos.home.title">Objetivos Conseguidos</span>
 
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-objetivos-conseguidos" [routerLink]="['/objetivos-conseguidos/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-end jh-create-entity create-objetivos-conseguidos" [routerLink]="['/objetivos-conseguidos/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="managerCareApp.objetivosConseguidos.home.createLabel">
             Create a new Objetivos Conseguidos
@@ -68,7 +68,7 @@
                             <a [routerLink]="['/objetivo', objetivosConseguidos.objetivo?.id, 'view']" >{{ objetivosConseguidos.objetivo?.nombre }}</a>
                         </div>
                     </td>
-                    <td class="text-right">
+                    <td class="text-end">
                         <div class="btn-group">
                             <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/objetivos-conseguidos', objetivosConseguidos.id, 'edit']"

@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="managerCareApp.puntosConseguidos.home.title">Puntos Conseguidos</span>
 
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-puntos-conseguidos" [routerLink]="['/puntos-conseguidos/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-end jh-create-entity create-puntos-conseguidos" [routerLink]="['/puntos-conseguidos/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="managerCareApp.puntosConseguidos.home.createLabel">
             Create a new Puntos Conseguidos
@@ -37,7 +37,7 @@
                     <td>
                         {{ puntosConseguidos.user?.login }}
                     </td>
-                    <td class="text-right">
+                    <td class="text-end">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/puntos-conseguidos', puntosConseguidos.id, 'view']"

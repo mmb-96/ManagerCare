@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="managerCareApp.categoriaAsc.home.title">Categoria Ascs</span>
 
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria-asc" [routerLink]="['/categoria-asc/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-end jh-create-entity create-categoria-asc" [routerLink]="['/categoria-asc/new']">
             <fa-icon icon="plus"></fa-icon>
             <span jhiTranslate="managerCareApp.categoriaAsc.home.createLabel">
             Create a new Categoria Asc
@@ -41,7 +41,7 @@
                             <a [routerLink]="['/categoria', categoriaAsc.idPadre?.id, 'view']" >{{ categoriaAsc.idPadre?.nombre }}</a>
                         </div>
                     </td>
-                    <td class="text-right">
+                    <td class="text-end">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/categoria-asc', categoriaAsc.id, 'view']"

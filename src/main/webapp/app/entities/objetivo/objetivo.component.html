@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="managerCareApp.objetivo.home.title">Objetivos</span>
 
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-objetivo" [routerLink]="['/objetivo/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-end jh-create-entity create-objetivo" [routerLink]="['/objetivo/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="managerCareApp.objetivo.home.createLabel">
             Create a new Objetivo
@@ -43,7 +43,7 @@
                             <a [routerLink]="['/tipo', objetivo.tipo?.id, 'view']" >{{ objetivo.tipo?.nombre }}</a>
                         </div>
                     </td>
-                    <td class="text-right">
+                    <td class="text-end">
                         <div class="btn-group">
                             <button type="submit"
                                     [routerLink]="['/objetivo', objetivo.id, 'view']"
