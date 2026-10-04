@@ -29,7 +29,6 @@
       "architect": {}
     }
   },
-  "defaultProject": "manager-care",
   "cli": {
     "packageManager": "npm"
   }
