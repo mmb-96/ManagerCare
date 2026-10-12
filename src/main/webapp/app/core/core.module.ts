@@ -12,6 +12,8 @@ import locale from '@angular/common/locales/es';
 import * as moment from 'moment';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateMomentAdapter } from 'app/shared/util/datepicker-adapter';
+import { MANAGERCARE_CONFIG } from 'app/shared/jhipster-compat/config.model';
+import { JHI_COMPAT_CONFIG } from 'app/shared/jhipster-compat/config.service';
 
 import { AuthInterceptor } from 'app/blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from 'app/blocks/interceptor/auth-expired.interceptor';
@@ -25,13 +27,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
     HttpClientModule,
     CookieModule.forRoot(),
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
-    NgJhipsterModule.forRoot({
-      // set below to true to make alerts look like toast
-      alertAsToast: false,
-      alertTimeout: 5000,
-      i18nEnabled: true,
-      defaultI18nLang: 'es'
-    }),
+    NgJhipsterModule.forRoot(MANAGERCARE_CONFIG),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -46,6 +42,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
     })
   ],
   providers: [
+    { provide: JHI_COMPAT_CONFIG, useValue: MANAGERCARE_CONFIG },
     Title,
     {
       provide: LOCALE_ID,

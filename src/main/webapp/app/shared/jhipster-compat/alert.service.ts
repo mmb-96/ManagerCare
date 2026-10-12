@@ -1,9 +1,9 @@
 import { Injectable, Optional, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { JhiConfigService } from 'ng-jhipster';
 
 import { JhiAlert } from './alert.model';
+import { JhiConfigService } from './config.service';
 
 @Injectable({ providedIn: 'root' })
 export class JhiAlertService {

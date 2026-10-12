@@ -1,10 +1,10 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { JhiConfigService } from 'ng-jhipster';
 
 import { JhiAlertService } from 'app/shared/jhipster-compat/alert.service';
 import { JhiAlert } from 'app/shared/jhipster-compat/alert.model';
+import { JhiConfigService } from 'app/shared/jhipster-compat/config.service';
 
 describe('JhiAlertService compatibility', () => {
   let service: JhiAlertService;
@@ -16,7 +16,13 @@ describe('JhiAlertService compatibility', () => {
     };
     service = new JhiAlertService(
       { sanitize: (_context: any, value: string) => value } as DomSanitizer,
-      { getConfig: () => ({ alertAsToast: false, alertTimeout: 50, i18nEnabled: true }) } as JhiConfigService,
+      new JhiConfigService({
+        alertAsToast: false,
+        alertTimeout: 50,
+        i18nEnabled: true,
+        defaultI18nLang: 'es',
+        noi18nMessage: 'translation-not-found'
+      }),
       translate
     );
   });
