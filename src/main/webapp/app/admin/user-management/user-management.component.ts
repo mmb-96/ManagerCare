@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AccountService } from 'app/core/auth/account.service';

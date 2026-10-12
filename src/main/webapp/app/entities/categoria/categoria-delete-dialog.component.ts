@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 
 import { ICategoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from './categoria.service';

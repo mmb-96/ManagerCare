@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ICategoriaAsc } from 'app/shared/model/categoria-asc.model';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 
 import { IObjetivosConseguidos } from 'app/shared/model/objetivos-conseguidos.model';
 import { ObjetivosConseguidosService } from './objetivos-conseguidos.service';

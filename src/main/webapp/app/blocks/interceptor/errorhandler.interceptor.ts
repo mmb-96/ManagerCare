@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
+import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
+import { JhiEventWithContent } from 'app/shared/jhipster-compat/event-with-content.model';
 import { HttpInterceptor, HttpRequest, HttpErrorResponse, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
