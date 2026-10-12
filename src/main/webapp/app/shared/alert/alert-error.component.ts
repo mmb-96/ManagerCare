@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { JhiAlert, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService } from 'app/shared/jhipster-compat/alert.service';
+import { JhiAlert } from 'app/shared/jhipster-compat/alert.model';
 import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 import { JhiEventWithContent } from 'app/shared/jhipster-compat/event-with-content.model';
 import { Subscription } from 'rxjs';

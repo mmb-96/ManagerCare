@@ -1,4 +1,4 @@
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService } from 'app/shared/jhipster-compat/alert.service';
 import { HttpInterceptor, HttpRequest, HttpResponse, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
