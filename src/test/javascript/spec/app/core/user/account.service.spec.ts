@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { JhiDateUtils } from 'ng-jhipster';
 import { NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -39,7 +38,6 @@ describe('Service Tests', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule, NgxWebstorageModule.forRoot()],
         providers: [
-          JhiDateUtils,
           {
             provide: JhiLanguageService,
             useClass: MockLanguageService

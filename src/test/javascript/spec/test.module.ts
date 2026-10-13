@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiDataUtils, JhiDateUtils, JhiParseLinks } from 'ng-jhipster';
 import { JhiAlertService } from 'app/shared/jhipster-compat/alert.service';
 import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
 import { JhiLanguageService } from 'app/shared/jhipster-compat/language.service';
@@ -19,9 +18,6 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
 @NgModule({
   providers: [
     DatePipe,
-    JhiDataUtils,
-    JhiDateUtils,
-    JhiParseLinks,
     {
       provide: JhiLanguageService,
       useClass: MockLanguageService
