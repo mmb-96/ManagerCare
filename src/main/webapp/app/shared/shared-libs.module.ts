@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgJhipsterModule } from 'ng-jhipster';
+import { ManagerCareJhipsterCompatModule } from 'app/shared/jhipster-compat/template/jhipster-compat.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     CommonModule,
     NgbModule,
-    NgJhipsterModule,
+    ManagerCareJhipsterCompatModule,
     InfiniteScrollModule,
     FontAwesomeModule,
     ReactiveFormsModule,
