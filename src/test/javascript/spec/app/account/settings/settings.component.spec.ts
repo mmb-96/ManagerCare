@@ -7,12 +7,15 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { SettingsComponent } from 'app/account/settings/settings.component';
 import { MockAccountService } from '../../../helpers/mock-account.service';
+import { JhiLanguageService } from 'app/shared/jhipster-compat/language.service';
+import { MockLanguageService } from '../../../helpers/mock-language.service';
 
 describe('Component Tests', () => {
   describe('SettingsComponent', () => {
     let comp: SettingsComponent;
     let fixture: ComponentFixture<SettingsComponent>;
     let mockAuth: MockAccountService;
+    let languageService: MockLanguageService;
     const accountValues: Account = {
       firstName: 'John',
       lastName: 'Doe',
@@ -38,6 +41,7 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(SettingsComponent);
       comp = fixture.componentInstance;
       mockAuth = TestBed.get(AccountService);
+      languageService = TestBed.get(JhiLanguageService);
       mockAuth.setIdentityResponse(accountValues);
     });
 
@@ -72,6 +76,17 @@ describe('Component Tests', () => {
 
       // THEN
       expect(comp.success).toBe(true);
+    });
+
+    it('should change language after saving when it differs from the current language', () => {
+      const accountWithDifferentLanguage = { ...accountValues, langKey: 'en' };
+      mockAuth.setIdentityResponse(accountWithDifferentLanguage);
+      mockAuth.saveSpy.and.returnValue(of({}));
+
+      comp.ngOnInit();
+      comp.save();
+
+      expect(languageService.changeLanguageSpy).toHaveBeenCalledWith('en');
     });
 
     it('should notify of error upon failed save', () => {

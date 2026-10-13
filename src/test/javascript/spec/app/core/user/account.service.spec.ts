@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { JhiDateUtils, JhiLanguageService } from 'ng-jhipster';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { JhiDateUtils } from 'ng-jhipster';
+import { NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { AccountService } from 'app/core/auth/account.service';
@@ -12,6 +12,7 @@ import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockRouter } from '../../../helpers/mock-route.service';
 import { MockStateStorageService } from '../../../helpers/mock-state-storage.service';
+import { JhiLanguageService } from 'app/shared/jhipster-compat/language.service';
 
 function accountWithAuthorities(authorities: string[]): Account {
   return {
@@ -32,6 +33,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let storageService: MockStateStorageService;
     let router: MockRouter;
+    let languageService: MockLanguageService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -57,6 +59,7 @@ describe('Service Tests', () => {
       httpMock = TestBed.get(HttpTestingController);
       storageService = TestBed.get(StateStorageService);
       router = TestBed.get(Router);
+      languageService = TestBed.get(JhiLanguageService);
     });
 
     afterEach(() => {
@@ -159,6 +162,26 @@ describe('Service Tests', () => {
           expect(storageService.getUrlSpy).toHaveBeenCalledTimes(1);
           expect(storageService.clearUrlSpy).not.toHaveBeenCalled();
           expect(router.navigateByUrlSpy).not.toHaveBeenCalled();
+        });
+
+        it('should prefer the session language over the account language', () => {
+          const sessionStorage = TestBed.get(SessionStorageService);
+          sessionStorage.store('locale', 'es');
+
+          service.identity(true).subscribe();
+          httpMock.expectOne({ method: 'GET' }).flush({ ...accountWithAuthorities([]), langKey: 'en' });
+
+          expect(languageService.changeLanguageSpy).toHaveBeenCalledWith('es');
+        });
+
+        it('should use the account language when there is no session language', () => {
+          const sessionStorage = TestBed.get(SessionStorageService);
+          sessionStorage.clear('locale');
+
+          service.identity(true).subscribe();
+          httpMock.expectOne({ method: 'GET' }).flush({ ...accountWithAuthorities([]), langKey: 'es' });
+
+          expect(languageService.changeLanguageSpy).toHaveBeenCalledWith('es');
         });
       });
     });

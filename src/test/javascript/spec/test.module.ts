@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService, JhiDataUtils, JhiDateUtils, JhiParseLinks } from 'ng-jhipster';
+import { JhiDataUtils, JhiDateUtils, JhiParseLinks } from 'ng-jhipster';
 import { JhiAlertService } from 'app/shared/jhipster-compat/alert.service';
 import { JhiEventManager } from 'app/shared/jhipster-compat/event-manager.service';
+import { JhiLanguageService } from 'app/shared/jhipster-compat/language.service';
 
 import { MockLanguageService } from './helpers/mock-language.service';
 import { AccountService } from 'app/core/auth/account.service';
