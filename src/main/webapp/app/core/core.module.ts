@@ -6,7 +6,6 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { CookieModule } from 'ngx-cookie';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { NgJhipsterModule } from 'ng-jhipster';
 import locale from '@angular/common/locales/es';
 
 import * as moment from 'moment';
@@ -30,7 +29,6 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
     HttpClientModule,
     CookieModule.forRoot(),
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
-    NgJhipsterModule.forRoot(MANAGERCARE_CONFIG),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
