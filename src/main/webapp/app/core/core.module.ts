@@ -6,15 +6,17 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { CookieModule } from 'ngx-cookie';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { NgJhipsterModule, translatePartialLoader, missingTranslationHandler, JhiConfigService } from 'ng-jhipster';
+import { NgJhipsterModule } from 'ng-jhipster';
 import locale from '@angular/common/locales/es';
 
 import * as moment from 'moment';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateMomentAdapter } from 'app/shared/util/datepicker-adapter';
 import { MANAGERCARE_CONFIG } from 'app/shared/jhipster-compat/config.model';
-import { JHI_COMPAT_CONFIG } from 'app/shared/jhipster-compat/config.service';
+import { JHI_COMPAT_CONFIG, JhiConfigService } from 'app/shared/jhipster-compat/config.service';
 import { JhiLanguageService } from 'app/shared/jhipster-compat/language.service';
+import { translatePartialLoader } from 'app/shared/jhipster-compat/translate-loader';
+import { missingTranslationHandler } from 'app/shared/jhipster-compat/missing-translation-handler';
 
 import { AuthInterceptor } from 'app/blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from 'app/blocks/interceptor/auth-expired.interceptor';
