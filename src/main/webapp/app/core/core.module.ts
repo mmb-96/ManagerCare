@@ -3,7 +3,6 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { CookieModule } from 'ngx-cookie';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import locale from '@angular/common/locales/es';
@@ -27,7 +26,6 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
 @NgModule({
   imports: [
     HttpClientModule,
-    CookieModule.forRoot(),
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
     TranslateModule.forRoot({
       loader: {
