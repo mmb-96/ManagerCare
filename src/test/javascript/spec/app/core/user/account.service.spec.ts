@@ -123,6 +123,19 @@ describe('Service Tests', () => {
       });
 
       describe('navigateToStoredUrl', () => {
+        it('should clear the stored url before navigating to it', () => {
+          const events: string[] = [];
+          storageService.setResponse('/protected/example');
+          storageService.clearUrlSpy.and.callFake(() => events.push('clear'));
+          router.navigateByUrlSpy.and.callFake(() => events.push('navigate'));
+
+          service.identity().subscribe();
+          httpMock.expectOne({ method: 'GET' }).flush({});
+
+          expect(events).toEqual(['clear', 'navigate']);
+          expect(router.navigateByUrlSpy).toHaveBeenCalledWith('/protected/example');
+        });
+
         it('should navigate to the previous stored url post successful authentication', () => {
           // GIVEN
           storageService.setResponse('admin/users?page=0');
