@@ -23,7 +23,8 @@ module.exports = (options) => ({
                 test: /\.m?js$/,
                 include: [
                     /node_modules[\\/]@angular[\\/]/,
-                    /node_modules[\\/]@ng-bootstrap[\\/]/
+                    /node_modules[\\/]@ng-bootstrap[\\/]/,
+                    /node_modules[\\/]@fortawesome[\\/]angular-fontawesome[\\/]/
                 ],
                 resolve: {
                     fullySpecified: false
