@@ -2,7 +2,6 @@ const tsconfig = require('../../../tsconfig.json');
 
 module.exports = {
     preset: 'jest-preset-angular',
-    globalSetup: 'jest-preset-angular/global-setup',
     setupFiles: ['jest-date-mock'],
     setupFilesAfterEnv: ['<rootDir>/src/test/javascript/jest.ts'],
     cacheDirectory: '<rootDir>/target/jest-cache',
