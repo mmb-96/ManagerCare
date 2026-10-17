@@ -24,7 +24,8 @@ module.exports = (options) => ({
                 include: [
                     /node_modules[\\/]@angular[\\/]/,
                     /node_modules[\\/]@ng-bootstrap[\\/]/,
-                    /node_modules[\\/]@fortawesome[\\/]angular-fontawesome[\\/]/
+                    /node_modules[\\/]@fortawesome[\\/]angular-fontawesome[\\/]/,
+                    /node_modules[\\/]ngx-webstorage[\\/]/
                 ],
                 resolve: {
                     fullySpecified: false
