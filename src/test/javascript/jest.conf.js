@@ -6,11 +6,14 @@ module.exports = {
     setupFilesAfterEnv: ['<rootDir>/src/test/javascript/jest.ts'],
     cacheDirectory: '<rootDir>/target/jest-cache',
     coverageDirectory: '<rootDir>/target/test-results/',
-    globals: {
-        'ts-jest': {
-            stringifyContentPathRegex: '\\.html$',
-            tsconfig: '<rootDir>/tsconfig.json'
-        }
+    transform: {
+        '^.+\\.(ts|js|mjs|html|svg)$': [
+            'jest-preset-angular',
+            {
+                tsconfig: { target: 'ES2015', module: 'CommonJS' },
+                stringifyContentPathRegex: '\\.html$'
+            }
+        ]
     },
     coveragePathIgnorePatterns: [
         '<rootDir>/src/test/javascript'
